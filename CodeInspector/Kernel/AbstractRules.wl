@@ -42,7 +42,7 @@ pseudoPredPat =
 opaquePat =
   CallNode[
     LeafNode[Symbol,
-      "Composition" | "If" | "Function" | "ReplaceAll" | "Switch" | "With", _], _, _]
+      "Composition" | "If" | "Function" | "ReplaceAll" | "RightComposition" | "Switch" | "With", _], _, _]
 
 (*
 
