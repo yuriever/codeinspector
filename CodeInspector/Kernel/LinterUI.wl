@@ -2443,7 +2443,11 @@ Module[
     Function[{cell, uiCellBoxes},
       (* Attach the new bracket marker and store its CellObject. *)
       With[
-        {markerCell = AttachCell[cell, uiCellBoxes, {"CellBracket", Top}, {0, 0}, {Right, Top}]},
+        {markerCell =
+          If[BoxForm`sufficientVersionQ[13.2],
+            FE`Evaluate[FEPrivate`AddCellTrayWidget[cell, "NoLintsBracketMarker" -> <|"Content" -> uiCellBoxes, "SortingValue" -> 1300|>]]
+            ,
+            AttachCell[cell, uiCellBoxes, {"CellBracket", Top}, {0, 0}, {Right, Top}]]},
         varSet[{notebook, cell, "CleanCellBracketMarker"}, markerCell]]],
     cleanCellsAssoc];
   
@@ -2455,7 +2459,11 @@ Module[
           (* The lint pod cell. *)
           podCell = AttachCell[cell, uiCellBoxes["LintPodBoxes"], "Inline"],
           (* Also attach a marker on the input/code cell bracket that takes you to the lint pod when clicked. *)
-          bracketCell = AttachCell[cell, uiCellBoxes["CellBracketButtonBoxes"], {"CellBracket", Top}, {0, 0}, {Right, Top}]},
+          bracketCell =
+            If[BoxForm`sufficientVersionQ[13.2],
+              FE`Evaluate[FEPrivate`AddCellTrayWidget[cell, "LintsBracketMarker" -> <|"Content" -> #, "SortingValue" -> 1300|>]]&[uiCellBoxes["CellBracketButtonBoxes"]]
+              ,
+              AttachCell[cell, uiCellBoxes["CellBracketButtonBoxes"], {"CellBracket", Top}, {0, 0}, {Right, Top}]]},
       
         varSet[{notebook, cell, "UIAttachedCells"}, {bracketCell, podCell}]]],
 
