@@ -937,15 +937,26 @@ raftMenuItemClickAction[
 
 
 relintAndRemarkup[notebook_NotebookObject, cell_CellObject, cellContents_] :=
-With[
+Module[{codeBoxes, unfilteredLints, allLintsAndTheirSources, lints},
   (* Regenerate the lints. *)
   (* Extract codeBoxes from the cell expression: Cell[BoxData[codeBoxes], ...] *)
-  {codeBoxes = First[First[cellContents]]},
+  codeBoxes = First[First[cellContents]];
   (* Analyze the cell. *)
-  {unfilteredLints = CodeInspector`CodeInspectBox[codeBoxes]},
-  (* Filter the lints. *)
-  {allLintsAndTheirSources = refineSources[unfilteredLints, cell, codeBoxes]},
-  {lints = Through[allLintsAndTheirSources["Lint"]]},
+  unfilteredLints = CodeInspector`CodeInspectBox[codeBoxes];
+  unfilteredLints =
+    If[FailureQ[unfilteredLints], (*445230: Rust back-end can return a Failure expression *)
+      {
+        CodeInspector`InspectionObject[
+          "InternalError", "An internal error has occurred.", "Fatal",
+          <|"Failure" -> unfilteredLints, ConfidenceLevel -> 1., CodeParser`Source -> {0}|>]}
+      ,
+      Replace[
+        unfilteredLints,
+        CodeInspector`InspectionObject["InternalError", rest__, a_?AssociationQ] :>
+          CodeInspector`InspectionObject["InternalError", rest, <|a, CodeParser`Source -> {0}|>],
+        1]];
+  allLintsAndTheirSources = If[unfilteredLints === {}, {}, refineSources[unfilteredLints, cell, codeBoxes]];
+  lints = If[allLintsAndTheirSources === {}, {}, Through[allLintsAndTheirSources["Lint"]]];
   
   (* Re-markup. *)
   varSet[{notebook, cell, "MarkedUpCode"},
@@ -2191,6 +2202,24 @@ With[
 ]
 
 
+markupCode[notebook_NotebookObject, cell_CellObject, CodeInspector`InspectionObject["InternalError", __, a_Association], {{0}}, codeBoxes_] :=
+RowBox[{
+  TemplateBox[
+    {
+      StyleBox[
+        "Click to copy the internal error.",
+        FontColor -> colorData["UIDark"], FontFamily -> "Source Sans Pro", FontWeight -> Plain, FontSize -> 13],
+      StringJoin["CodeAnalysis encountered an internal error:\n\n", ToString[<|a, "Boxes" -> codeBoxes|>, InputForm]]},
+    "ClickToCopy2"],
+  ButtonBox[
+    StyleBox[
+      "Report the internal error to Wolfram Research.",
+      FontColor -> colorData["UIDark"], FontFamily -> "Source Sans Pro", FontWeight -> Plain, FontSize -> 13],
+    "ButtonFunction" :> SystemOpen[URL["https://www.wolfram.com/support/contact/email/?topic=Feedback"]],
+    Evaluator -> Automatic,
+    Method -> "Queued"]}]
+
+
 markupCode[notebook_NotebookObject, cell_CellObject, lint_CodeInspector`InspectionObject, sources_, codeBoxes_] :=
 Block[{raftAttachedQ, mouseOver},
 
@@ -2296,11 +2325,25 @@ Module[
       (* First check that NotebookRead returned a Cell of the form we're expecting. *)
       !MatchQ[contents, Cell[BoxData[_], ___]],
       (* Then analyze the cell and check that it produced lints. *)
-      (unfilteredLints = CodeInspector`CodeInspectBox[codeBoxes = First[First[contents]]]) === {},
+      unfilteredLints = CodeInspector`CodeInspectBox[codeBoxes = First[First[contents]]];
+      unfilteredLints =
+        If[FailureQ[unfilteredLints], (*445230: Rust back-end can return a Failure expression *)
+          {
+            CodeInspector`InspectionObject[
+              "InternalError", "An internal error has occurred.", "Fatal",
+              <|"Failure" -> unfilteredLints, ConfidenceLevel -> 1., CodeParser`Source -> {0}|>]}
+          ,
+          Replace[
+            unfilteredLints,
+            CodeInspector`InspectionObject["InternalError", rest__, a_?AssociationQ] :>
+              CodeInspector`InspectionObject["InternalError", rest, <|a, CodeParser`Source -> {0}|>],
+            1]];
+      unfilteredLints === {},
       (* Then check that some lints remain after filtering. *)
-      (allLintsAndTheirSources = refineSources[unfilteredLints, cell, codeBoxes]) === {}],
+      allLintsAndTheirSources = refineSources[unfilteredLints, cell, codeBoxes];
+      allLintsAndTheirSources === {}],
 
-    (* If the cell produced no lints, return Nothing. *)
+    (* If the cell produced no lints, return Nothing, because getCellInfo is only ever use Map'ed over a list. *)
     Nothing,
 
     (* ----- If the cell produced lints, populate the various lint variables and return the cell: ----- *)
