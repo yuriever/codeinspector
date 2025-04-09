@@ -21,14 +21,15 @@
 @@resource CodeInspectorExpressions
 {
 "DockedCell" -> Cell[BoxData[
- DynamicModuleBox[{LinterUIDockedCell`Private`notebook$$}, 
+ DynamicModuleBox[{$CellContext`notebook$$}, 
   GraphicsBox[{InsetBox[
      TemplateBox[{
        PaneBox[
-        StyleBox[
-        "\"Code Analysis\"", FontColor -> GrayLevel[0.4], FontFamily -> 
-         "Source Sans Pro", FontWeight -> Plain, FontSize -> 13, StripOnInput -> 
-         False], BaselinePosition -> (Baseline -> Scaled[0.65])], 
+        DynamicBox[
+         ToBoxes[
+          CodeInspector`LinterUI`Private`styleData["SectionHeader"][
+          "Code Analysis"], TraditionalForm]], 
+        BaselinePosition -> (Baseline -> Scaled[0.65])], 
        TemplateBox[{8}, "Spacer1"], 
        PaneBox[
         PaneSelectorBox[{{False, False} -> 
@@ -48,9 +49,9 @@ dockedCellLintCounts},
             DynamicWrapperBox[
              DynamicBox[
               ToBoxes[
-              CodeInspector`LinterUI`Private`tracker$$; 
-               LinterUIDockedCell`Private`dockedCellSeverityCountsButton[
-                LinterUIDockedCell`Private`notebook$$], TraditionalForm], 
+              CodeInspector`LinterUI`Private`tracker$$; \
+$CellContext`dockedCellSeverityCountsButton[$CellContext`notebook$$], 
+               TraditionalForm], 
               TrackedSymbols :> {CodeInspector`LinterUI`Private`tracker$$}], 
              If[
              CodeInspector`LinterUI`Private`tracker$$ =!= 
@@ -59,12 +60,14 @@ dockedCellLintCounts, CodeInspector`LinterUI`Private`tracker$$ =
               CodeInspector`LinterUI`Private`DynamicTriggers`\
 dockedCellLintCounts]], DynamicModuleValues :> {}]}, 
          Dynamic[FEPrivate`EvaluatorStatus["Local"]; {
-            CodeInspector`LinterUI`Private`varValue[
-            LinterUIDockedCell`Private`notebook$$, "AnalysisInProgressQ"], 
+            
+            CodeInspector`LinterUI`Private`varValue[$CellContext`notebook$$, 
+             "AnalysisInProgressQ"], 
             TrueQ[
-             CodeInspector`LinterUI`Private`varValue[
-             LinterUIDockedCell`Private`notebook$$, "DockedCellPresentQ"]]}], 
-         ImageSize -> Automatic], BaselinePosition -> Scaled[0.15]]},
+             
+             CodeInspector`LinterUI`Private`varValue[$CellContext`notebook$$, 
+              "DockedCellPresentQ"]]}], ImageSize -> Automatic], 
+        BaselinePosition -> Scaled[0.15]]},
       "Row",
       DisplayFunction->(PaneBox[
         RowBox[{
@@ -82,160 +85,21 @@ dockedCellLintCounts]], DynamicModuleValues :> {}]},
        CodeInspector`LinterUI`Private`fontColor$$}, 
        ButtonBox[
         DynamicWrapperBox[
-         TemplateBox[{
-           DynamicWrapperBox[
-            StyleBox[
-             PaneBox[
-             "\"Reanalyze Notebook\"", ContentPadding -> True, FrameMargins -> 
-              None, BaselinePosition -> Baseline], FontColor -> 
-             Dynamic[CodeInspector`LinterUI`Private`fontColor$$], FontColor -> 
-             GrayLevel[0.2], FontFamily -> "Source Sans Pro", FontWeight -> 
-             Plain, FontSize -> 14, StripOnInput -> False], 
-            CodeInspector`LinterUI`Private`fontColor$$ = Which[
-              TrueQ[
-               Not[
-                
-                OptionValue[{
-                 ImageSize -> {Automatic, 19}, 
-                  FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
-                  Baseline, Alignment -> {Center, Center}, Method -> 
-                  "Preemptive", "ActiveQ" -> True, "TextColor" -> 
-                  CodeInspector`LinterUI`Private`colorData["ButtonText"], 
-                  "TextHoverColor" -> 
-                  CodeInspector`LinterUI`Private`colorData["ButtonTextHover"],
-                   "TextInactiveColor" -> 
-                  CodeInspector`LinterUI`Private`colorData[
-                   "ButtonTextInactive"], "BackColor" -> 
-                  CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
-                  "BackHoverColor" -> 
-                  CodeInspector`LinterUI`Private`colorData["ButtonBackHover"],
-                   "BackMouseDownColor" -> 
-                  CodeInspector`LinterUI`Private`colorData[
-                   "ButtonBackMouseDown"], "BackInactiveColor" -> 
-                  CodeInspector`LinterUI`Private`colorData[
-                   "ButtonBackInactive"], "EdgeColor" -> 
-                  CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
-                  "EdgeHoverColor" -> 
-                  CodeInspector`LinterUI`Private`colorData["ButtonEdgeHover"],
-                   "EdgeInactiveColor" -> 
-                  CodeInspector`LinterUI`Private`colorData[
-                   "ButtonEdgeInactive"]}, {Method -> "Queued"}, "ActiveQ"]]], 
-              
-              OptionValue[{
-               ImageSize -> {Automatic, 19}, 
-                FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
-                Baseline, Alignment -> {Center, Center}, Method -> 
-                "Preemptive", "ActiveQ" -> True, "TextColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonText"], 
-                "TextHoverColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonTextHover"], 
-                "TextInactiveColor" -> 
-                CodeInspector`LinterUI`Private`colorData[
-                 "ButtonTextInactive"], "BackColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
-                "BackHoverColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonBackHover"], 
-                "BackMouseDownColor" -> 
-                CodeInspector`LinterUI`Private`colorData[
-                 "ButtonBackMouseDown"], "BackInactiveColor" -> 
-                CodeInspector`LinterUI`Private`colorData[
-                 "ButtonBackInactive"], "EdgeColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
-                "EdgeHoverColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonEdgeHover"], 
-                "EdgeInactiveColor" -> 
-                CodeInspector`LinterUI`Private`colorData[
-                 "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
-               "TextInactiveColor"], CodeInspector`LinterUI`Private`hoverQ$$, 
-              
-              
-              OptionValue[{
-               ImageSize -> {Automatic, 19}, 
-                FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
-                Baseline, Alignment -> {Center, Center}, Method -> 
-                "Preemptive", "ActiveQ" -> True, "TextColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonText"], 
-                "TextHoverColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonTextHover"], 
-                "TextInactiveColor" -> 
-                CodeInspector`LinterUI`Private`colorData[
-                 "ButtonTextInactive"], "BackColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
-                "BackHoverColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonBackHover"], 
-                "BackMouseDownColor" -> 
-                CodeInspector`LinterUI`Private`colorData[
-                 "ButtonBackMouseDown"], "BackInactiveColor" -> 
-                CodeInspector`LinterUI`Private`colorData[
-                 "ButtonBackInactive"], "EdgeColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
-                "EdgeHoverColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonEdgeHover"], 
-                "EdgeInactiveColor" -> 
-                CodeInspector`LinterUI`Private`colorData[
-                 "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
-               "TextHoverColor"], True, 
-              
-              OptionValue[{
-               ImageSize -> {Automatic, 19}, 
-                FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
-                Baseline, Alignment -> {Center, Center}, Method -> 
-                "Preemptive", "ActiveQ" -> True, "TextColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonText"], 
-                "TextHoverColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonTextHover"], 
-                "TextInactiveColor" -> 
-                CodeInspector`LinterUI`Private`colorData[
-                 "ButtonTextInactive"], "BackColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
-                "BackHoverColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonBackHover"], 
-                "BackMouseDownColor" -> 
-                CodeInspector`LinterUI`Private`colorData[
-                 "ButtonBackMouseDown"], "BackInactiveColor" -> 
-                CodeInspector`LinterUI`Private`colorData[
-                 "ButtonBackInactive"], "EdgeColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
-                "EdgeHoverColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonEdgeHover"], 
-                "EdgeInactiveColor" -> 
-                CodeInspector`LinterUI`Private`colorData[
-                 "ButtonEdgeInactive"]}, {Method -> "Queued"}, "TextColor"]]],
-            ContentPadding -> False, FrameMargins -> {{9, 9}, {0, 0}}, 
-           Alignment -> {Center, Center}, ImageSize -> {Automatic, 19}, 
-           RoundingRadius -> 3, FrameStyle -> Dynamic[
-             Directive[
-              AbsoluteThickness[0.5], 
-              Which[
-               TrueQ[
-                Not[
-                 
-                 OptionValue[{
-                  ImageSize -> {Automatic, 19}, 
-                   FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
-                   Baseline, Alignment -> {Center, Center}, Method -> 
-                   "Preemptive", "ActiveQ" -> True, "TextColor" -> 
-                   CodeInspector`LinterUI`Private`colorData["ButtonText"], 
-                   "TextHoverColor" -> 
-                   CodeInspector`LinterUI`Private`colorData[
-                    "ButtonTextHover"], "TextInactiveColor" -> 
-                   CodeInspector`LinterUI`Private`colorData[
-                    "ButtonTextInactive"], "BackColor" -> 
-                   CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
-                   "BackHoverColor" -> 
-                   CodeInspector`LinterUI`Private`colorData[
-                    "ButtonBackHover"], "BackMouseDownColor" -> 
-                   CodeInspector`LinterUI`Private`colorData[
-                    "ButtonBackMouseDown"], "BackInactiveColor" -> 
-                   CodeInspector`LinterUI`Private`colorData[
-                    "ButtonBackInactive"], "EdgeColor" -> 
-                   CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
-                   "EdgeHoverColor" -> 
-                   CodeInspector`LinterUI`Private`colorData[
-                    "ButtonEdgeHover"], "EdgeInactiveColor" -> 
-                   CodeInspector`LinterUI`Private`colorData[
-                    "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
-                  "ActiveQ"]]], 
+         FrameBox[
+          DynamicWrapperBox[
+           StyleBox[
+            PaneBox["\<\"Reanalyze Notebook\"\>",
+             BaselinePosition->Baseline,
+             ContentPadding->True,
+             FrameMargins->None],
+            StripOnInput->False,
+            FontFamily->"Source Sans Pro",
+            FontSize->14,
+            FontWeight->Plain,
+            FontColor->Dynamic[CodeInspector`LinterUI`Private`fontColor$$]], 
+           CodeInspector`LinterUI`Private`fontColor$$ = Which[
+             TrueQ[
+              Not[
                
                OptionValue[{
                 ImageSize -> {Automatic, 19}, 
@@ -261,8 +125,93 @@ dockedCellLintCounts]], DynamicModuleValues :> {}]},
                  CodeInspector`LinterUI`Private`colorData["ButtonEdgeHover"], 
                  "EdgeInactiveColor" -> 
                  CodeInspector`LinterUI`Private`colorData[
-                  "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
-                "EdgeInactiveColor"], CodeInspector`LinterUI`Private`hoverQ$$, 
+                  "ButtonEdgeInactive"]}, {Method -> "Queued"}, "ActiveQ"]]], 
+             
+             
+             OptionValue[{
+              ImageSize -> {Automatic, 19}, 
+               FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
+               Baseline, Alignment -> {Center, Center}, Method -> 
+               "Preemptive", "ActiveQ" -> True, "TextColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonText"], 
+               "TextHoverColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonTextHover"], 
+               "TextInactiveColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonTextInactive"],
+                "BackColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
+               "BackHoverColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonBackHover"], 
+               "BackMouseDownColor" -> 
+               CodeInspector`LinterUI`Private`colorData[
+                "ButtonBackMouseDown"], "BackInactiveColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonBackInactive"],
+                "EdgeColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
+               "EdgeHoverColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonEdgeHover"], 
+               "EdgeInactiveColor" -> 
+               CodeInspector`LinterUI`Private`colorData[
+                "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
+              "TextInactiveColor"], CodeInspector`LinterUI`Private`hoverQ$$, 
+             
+             OptionValue[{
+              ImageSize -> {Automatic, 19}, 
+               FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
+               Baseline, Alignment -> {Center, Center}, Method -> 
+               "Preemptive", "ActiveQ" -> True, "TextColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonText"], 
+               "TextHoverColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonTextHover"], 
+               "TextInactiveColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonTextInactive"],
+                "BackColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
+               "BackHoverColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonBackHover"], 
+               "BackMouseDownColor" -> 
+               CodeInspector`LinterUI`Private`colorData[
+                "ButtonBackMouseDown"], "BackInactiveColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonBackInactive"],
+                "EdgeColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
+               "EdgeHoverColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonEdgeHover"], 
+               "EdgeInactiveColor" -> 
+               CodeInspector`LinterUI`Private`colorData[
+                "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
+              "TextHoverColor"], True, 
+             
+             OptionValue[{
+              ImageSize -> {Automatic, 19}, 
+               FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
+               Baseline, Alignment -> {Center, Center}, Method -> 
+               "Preemptive", "ActiveQ" -> True, "TextColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonText"], 
+               "TextHoverColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonTextHover"], 
+               "TextInactiveColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonTextInactive"],
+                "BackColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
+               "BackHoverColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonBackHover"], 
+               "BackMouseDownColor" -> 
+               CodeInspector`LinterUI`Private`colorData[
+                "ButtonBackMouseDown"], "BackInactiveColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonBackInactive"],
+                "EdgeColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
+               "EdgeHoverColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonEdgeHover"], 
+               "EdgeInactiveColor" -> 
+               CodeInspector`LinterUI`Private`colorData[
+                "ButtonEdgeInactive"]}, {Method -> "Queued"}, "TextColor"]]],
+          Alignment->{Center, Center},
+          Background->Dynamic[
+            Which[
+             TrueQ[
+              Not[
                
                OptionValue[{
                 ImageSize -> {Automatic, 19}, 
@@ -288,35 +237,125 @@ dockedCellLintCounts]], DynamicModuleValues :> {}]},
                  CodeInspector`LinterUI`Private`colorData["ButtonEdgeHover"], 
                  "EdgeInactiveColor" -> 
                  CodeInspector`LinterUI`Private`colorData[
-                  "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
-                "EdgeHoverColor"], True, 
-               
-               OptionValue[{
-                ImageSize -> {Automatic, 19}, 
-                 FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
-                 Baseline, Alignment -> {Center, Center}, Method -> 
-                 "Preemptive", "ActiveQ" -> True, "TextColor" -> 
-                 CodeInspector`LinterUI`Private`colorData["ButtonText"], 
-                 "TextHoverColor" -> 
-                 CodeInspector`LinterUI`Private`colorData["ButtonTextHover"], 
-                 "TextInactiveColor" -> 
-                 CodeInspector`LinterUI`Private`colorData[
-                  "ButtonTextInactive"], "BackColor" -> 
-                 CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
-                 "BackHoverColor" -> 
-                 CodeInspector`LinterUI`Private`colorData["ButtonBackHover"], 
-                 "BackMouseDownColor" -> 
-                 CodeInspector`LinterUI`Private`colorData[
-                  "ButtonBackMouseDown"], "BackInactiveColor" -> 
-                 CodeInspector`LinterUI`Private`colorData[
-                  "ButtonBackInactive"], "EdgeColor" -> 
-                 CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
-                 "EdgeHoverColor" -> 
-                 CodeInspector`LinterUI`Private`colorData["ButtonEdgeHover"], 
-                 "EdgeInactiveColor" -> 
-                 CodeInspector`LinterUI`Private`colorData[
-                  "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
-                "EdgeColor"]]]], Background -> Dynamic[
+                  "ButtonEdgeInactive"]}, {Method -> "Queued"}, "ActiveQ"]]], 
+             
+             
+             OptionValue[{
+              ImageSize -> {Automatic, 19}, 
+               FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
+               Baseline, Alignment -> {Center, Center}, Method -> 
+               "Preemptive", "ActiveQ" -> True, "TextColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonText"], 
+               "TextHoverColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonTextHover"], 
+               "TextInactiveColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonTextInactive"],
+                "BackColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
+               "BackHoverColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonBackHover"], 
+               "BackMouseDownColor" -> 
+               CodeInspector`LinterUI`Private`colorData[
+                "ButtonBackMouseDown"], "BackInactiveColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonBackInactive"],
+                "EdgeColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
+               "EdgeHoverColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonEdgeHover"], 
+               "EdgeInactiveColor" -> 
+               CodeInspector`LinterUI`Private`colorData[
+                "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
+              "BackInactiveColor"], 
+             And[
+             CodeInspector`LinterUI`Private`hoverQ$$, 
+              CodeInspector`LinterUI`Private`mouseDownQ$$], 
+             
+             OptionValue[{
+              ImageSize -> {Automatic, 19}, 
+               FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
+               Baseline, Alignment -> {Center, Center}, Method -> 
+               "Preemptive", "ActiveQ" -> True, "TextColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonText"], 
+               "TextHoverColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonTextHover"], 
+               "TextInactiveColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonTextInactive"],
+                "BackColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
+               "BackHoverColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonBackHover"], 
+               "BackMouseDownColor" -> 
+               CodeInspector`LinterUI`Private`colorData[
+                "ButtonBackMouseDown"], "BackInactiveColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonBackInactive"],
+                "EdgeColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
+               "EdgeHoverColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonEdgeHover"], 
+               "EdgeInactiveColor" -> 
+               CodeInspector`LinterUI`Private`colorData[
+                "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
+              "BackMouseDownColor"], CodeInspector`LinterUI`Private`hoverQ$$, 
+             
+             
+             OptionValue[{
+              ImageSize -> {Automatic, 19}, 
+               FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
+               Baseline, Alignment -> {Center, Center}, Method -> 
+               "Preemptive", "ActiveQ" -> True, "TextColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonText"], 
+               "TextHoverColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonTextHover"], 
+               "TextInactiveColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonTextInactive"],
+                "BackColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
+               "BackHoverColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonBackHover"], 
+               "BackMouseDownColor" -> 
+               CodeInspector`LinterUI`Private`colorData[
+                "ButtonBackMouseDown"], "BackInactiveColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonBackInactive"],
+                "EdgeColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
+               "EdgeHoverColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonEdgeHover"], 
+               "EdgeInactiveColor" -> 
+               CodeInspector`LinterUI`Private`colorData[
+                "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
+              "BackHoverColor"], True, 
+             
+             OptionValue[{
+              ImageSize -> {Automatic, 19}, 
+               FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
+               Baseline, Alignment -> {Center, Center}, Method -> 
+               "Preemptive", "ActiveQ" -> True, "TextColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonText"], 
+               "TextHoverColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonTextHover"], 
+               "TextInactiveColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonTextInactive"],
+                "BackColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
+               "BackHoverColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonBackHover"], 
+               "BackMouseDownColor" -> 
+               CodeInspector`LinterUI`Private`colorData[
+                "ButtonBackMouseDown"], "BackInactiveColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonBackInactive"],
+                "EdgeColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
+               "EdgeHoverColor" -> 
+               CodeInspector`LinterUI`Private`colorData["ButtonEdgeHover"], 
+               "EdgeInactiveColor" -> 
+               CodeInspector`LinterUI`Private`colorData[
+                "ButtonEdgeInactive"]}, {Method -> "Queued"}, "BackColor"]]],
+          ContentPadding->False,
+          DefaultBaseStyle->"HighlightedInput",
+          FrameMargins->{{9, 9}, {0, 0}},
+          FrameStyle->Dynamic[
+            Directive[
+             AbsoluteThickness[0.5], 
              Which[
               TrueQ[
                Not[
@@ -372,10 +411,8 @@ dockedCellLintCounts]], DynamicModuleValues :> {}]},
                 "EdgeInactiveColor" -> 
                 CodeInspector`LinterUI`Private`colorData[
                  "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
-               "BackInactiveColor"], 
-              And[
-              CodeInspector`LinterUI`Private`hoverQ$$, 
-               CodeInspector`LinterUI`Private`mouseDownQ$$], 
+               "EdgeInactiveColor"], CodeInspector`LinterUI`Private`hoverQ$$, 
+              
               
               OptionValue[{
                ImageSize -> {Automatic, 19}, 
@@ -402,7 +439,7 @@ dockedCellLintCounts]], DynamicModuleValues :> {}]},
                 "EdgeInactiveColor" -> 
                 CodeInspector`LinterUI`Private`colorData[
                  "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
-               "BackMouseDownColor"], CodeInspector`LinterUI`Private`hoverQ$$, 
+               "EdgeHoverColor"], True, 
               
               OptionValue[{
                ImageSize -> {Automatic, 19}, 
@@ -428,35 +465,10 @@ dockedCellLintCounts]], DynamicModuleValues :> {}]},
                 CodeInspector`LinterUI`Private`colorData["ButtonEdgeHover"], 
                 "EdgeInactiveColor" -> 
                 CodeInspector`LinterUI`Private`colorData[
-                 "ButtonEdgeInactive"]}, {Method -> "Queued"}, 
-               "BackHoverColor"], True, 
-              
-              OptionValue[{
-               ImageSize -> {Automatic, 19}, 
-                FrameMargins -> {9 {1, 1}, 0 {1, 1}}, BaselinePosition -> 
-                Baseline, Alignment -> {Center, Center}, Method -> 
-                "Preemptive", "ActiveQ" -> True, "TextColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonText"], 
-                "TextHoverColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonTextHover"], 
-                "TextInactiveColor" -> 
-                CodeInspector`LinterUI`Private`colorData[
-                 "ButtonTextInactive"], "BackColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonBack"], 
-                "BackHoverColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonBackHover"], 
-                "BackMouseDownColor" -> 
-                CodeInspector`LinterUI`Private`colorData[
-                 "ButtonBackMouseDown"], "BackInactiveColor" -> 
-                CodeInspector`LinterUI`Private`colorData[
-                 "ButtonBackInactive"], "EdgeColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonEdge"], 
-                "EdgeHoverColor" -> 
-                CodeInspector`LinterUI`Private`colorData["ButtonEdgeHover"], 
-                "EdgeInactiveColor" -> 
-                CodeInspector`LinterUI`Private`colorData[
-                 "ButtonEdgeInactive"]}, {Method -> "Queued"}, "BackColor"]]]},
-          "Highlighted"], 
+                 "ButtonEdgeInactive"]}, {Method -> "Queued"}, "EdgeColor"]]]],
+          ImageSize->{Automatic, 19},
+          RoundingRadius->3,
+          StripOnInput->False], 
          CodeInspector`LinterUI`Private`hoverQ$$ = CurrentValue["MouseOver"]; 
          CodeInspector`LinterUI`Private`mouseDownQ$$ = 
           CurrentValue["MouseButtonTest"]],
@@ -513,19 +525,27 @@ dockedCellLintCounts]], DynamicModuleValues :> {}]},
         Method->"Queued"],
        DynamicModuleValues:>{}], False->
       ButtonBox[
-       TemplateBox[{
-         StyleBox[
-         "\"Analyze Notebook\"", FontColor -> GrayLevel[0.2], FontFamily -> 
-          "Source Sans Pro", FontWeight -> Plain, FontSize -> 14, 
-          StripOnInput -> False], ImageSize -> {Automatic, 19}, 
-         FrameMargins -> {{9, 9}, {0, 0}}, BaselinePosition -> Baseline, 
-         Alignment -> {Center, Center}, Background -> GrayLevel[1], 
-         FrameStyle -> Dynamic[
-           If[
-            CurrentValue["MouseOver"], 
-            Hue[0.55, 0.82, 0.87], 
-            GrayLevel[0.8]]]},
-        "Highlighted"],
+       FrameBox[
+        StyleBox["\<\"Analyze Notebook\"\>",
+         StripOnInput->False,
+         FontFamily->"Source Sans Pro",
+         FontSize->14,
+         FontWeight->Plain,
+         FontColor->Dynamic[
+           CodeInspector`LinterUI`Private`colorData["ButtonText"]]],
+        Alignment->{Center, Center},
+        Background->Dynamic[
+          CodeInspector`LinterUI`Private`colorData["ButtonBack"]],
+        BaselinePosition->Baseline,
+        DefaultBaseStyle->"HighlightedInput",
+        FrameMargins->{{9, 9}, {0, 0}},
+        FrameStyle->Dynamic[
+          If[
+           CurrentValue["MouseOver"], 
+           CodeInspector`LinterUI`Private`colorData["ButtonEdgeHover"], 
+           CodeInspector`LinterUI`Private`colorData["ButtonEdge"]]],
+        ImageSize->{Automatic, 19},
+        StripOnInput->False],
        Appearance->{
         "Default" -> 
          Image[RawArray["UnsignedInteger8",{{{255, 255, 255, 255}, {0, 0, 0, 
@@ -545,19 +565,19 @@ dockedCellLintCounts]], DynamicModuleValues :> {}]},
             Interleaving -> True]},
        ButtonFunction:>(CurrentValue[
            EvaluationNotebook[], DockedCells] = 
-         With[{LinterUIDockedCell`Private`dockedCells = CurrentValue[
+         With[{$CellContext`dockedCells = CurrentValue[
               EvaluationNotebook[], DockedCells]}, 
-           Pick[LinterUIDockedCell`Private`dockedCells, 
+           Pick[$CellContext`dockedCells, 
             Map[Quiet[
                Options[#, CellTags]] =!= {
-              CellTags -> "CodeAnalysisDockedCell"}& , 
-             LinterUIDockedCell`Private`dockedCells]]]; 
+              CellTags -> 
+               "CodeAnalysisDockedCell"}& , $CellContext`dockedCells]]]; 
         Needs["CodeInspector`"]; 
-        CodeInspector`AttachAnalysis[LinterUIDockedCell`Private`notebook$$]),
+        CodeInspector`AttachAnalysis[$CellContext`notebook$$]),
        Evaluator->Automatic,
        Method->"Queued"]}, Dynamic[FEPrivate`EvaluatorStatus["Local"]; TrueQ[
-         CodeInspector`LinterUI`Private`varValue[
-         LinterUIDockedCell`Private`notebook$$, "DockedCellPresentQ"]]],
+         CodeInspector`LinterUI`Private`varValue[$CellContext`notebook$$, 
+          "DockedCellPresentQ"]]],
       ImageSize->Automatic], Offset[{-26, 0}, {1, 0}], {1, 0}], 
     TagBox[
      TagBox[
@@ -572,102 +592,94 @@ dockedCellLintCounts]], DynamicModuleValues :> {}]},
       Annotation[#, "Close analysis", "Tooltip"]& ],
      EventHandlerTag[{"MouseClicked" :> (Map[NotebookDelete, 
           Flatten[
-           CodeInspector`LinterUI`Private`varValue[
-           LinterUIDockedCell`Private`notebook$$, All, "UIAttachedCells"]]]; 
-        Map[NotebookDelete, 
+           
+           CodeInspector`LinterUI`Private`varValue[$CellContext`notebook$$, 
+            All, "UIAttachedCells"]]]; Map[NotebookDelete, 
           Flatten[
-           CodeInspector`LinterUI`Private`varValue[
-           LinterUIDockedCell`Private`notebook$$, All, 
-            "CleanCellBracketMarker"]]]; CurrentValue[
+           
+           CodeInspector`LinterUI`Private`varValue[$CellContext`notebook$$, 
+            All, "CleanCellBracketMarker"]]]; CurrentValue[
            EvaluationNotebook[], DockedCells] = 
-         With[{LinterUIDockedCell`Private`dockedCells = CurrentValue[
+         With[{$CellContext`dockedCells = CurrentValue[
               EvaluationNotebook[], DockedCells]}, 
-           Pick[LinterUIDockedCell`Private`dockedCells, 
+           Pick[$CellContext`dockedCells, 
             Map[Quiet[
                Options[#, CellTags]] =!= {
-              CellTags -> "CodeAnalysisDockedCell"}& , 
-             LinterUIDockedCell`Private`dockedCells]]]; 
+              CellTags -> 
+               "CodeAnalysisDockedCell"}& , $CellContext`dockedCells]]]; 
         CodeInspector`LinterUI`Private`applyToVar[Remove, {
            EvaluationNotebook[], All}]; 
-        CodeInspector`LinterUI`Private`varSet[{
-          LinterUIDockedCell`Private`notebook$$, "DockedCellPresentQ"}, 
-          False]), Method -> "Preemptive", PassEventsDown -> Automatic, 
-       PassEventsUp -> True}]]},
+        CodeInspector`LinterUI`Private`varSet[{$CellContext`notebook$$, 
+           "DockedCellPresentQ"}, False]), Method -> "Preemptive", 
+       PassEventsDown -> Automatic, PassEventsUp -> True}]]},
    AspectRatio->Full,
    ImageSize->{Full, 23},
    PlotRange->{{-1, 1}, {-1, 1}}],
   Deinitialization:>
-   CodeInspector`LinterUI`Private`varSet[{
-    LinterUIDockedCell`Private`notebook$$, "DockedCellPresentQ"}, False],
+   CodeInspector`LinterUI`Private`varSet[{$CellContext`notebook$$, 
+     "DockedCellPresentQ"}, False],
   DynamicModuleValues:>{},
-  Initialization:>({
-    LinterUIDockedCell`Private`dockedCellSeverityCountsButton[
-       Pattern[LinterUIDockedCell`Private`notebook, 
+  Initialization:>({$CellContext`dockedCellSeverityCountsButton[
+       Pattern[$CellContext`notebook, 
         Blank[NotebookObject]]] := 
-     With[{LinterUIDockedCell`Private`formatIcon = 
+     With[{$CellContext`formatIcon = 
         Show[#, ImageSize -> {13, 9}, BaselinePosition -> Scaled[-0.2]]& }, 
        ActionMenu[
         Highlighted[
          Row[{
-           CodeInspector`LinterUI`Private`lintSeverityCountsIconRow[
-           LinterUIDockedCell`Private`notebook, "exclamSize" -> 12, FontSize -> 
-            14, FontWeight -> Plain], 
+           
+           CodeInspector`LinterUI`Private`lintSeverityCountsIconRow[$\
+CellContext`notebook, "exclamSize" -> 12, FontSize -> 14, FontWeight -> 
+            Plain], 
            Spacer[2], 
-           LinterUIDockedCell`Private`formatIcon[
+           $CellContext`formatIcon[
             CodeInspector`LinterUI`Private`iconData["DownChevron"][
              CodeInspector`LinterUI`Private`colorData["UIDark"]]]}], 
          ImageSize -> {Automatic, 19}, BaselinePosition -> Baseline, 
-         Background -> White, Frame -> True, FrameStyle -> Dynamic[
+         Background -> Dynamic[
+           CodeInspector`LinterUI`Private`colorData["ButtonBack"]], Frame -> 
+         True, FrameStyle -> Dynamic[
            If[
             CurrentValue["MouseOver"], 
-            Hue[0.55, 0.82, 0.87], 
-            GrayLevel[0.8]]], FrameMargins -> {6 {1, 1}, {1, 1}}, 
-         Alignment -> {Center, Baseline}], 
-        Map[
-        LinterUIDockedCell`Private`dockedCellMenuItem[
-         LinterUIDockedCell`Private`notebook, #]& , 
-         CodeInspector`LinterUI`Private`varValue[
-         LinterUIDockedCell`Private`notebook, All, "Cell"]], Appearance -> 
-        None]], LinterUIDockedCell`Private`dockedCellMenuItem[
-       Pattern[LinterUIDockedCell`Private`notebook, 
+            CodeInspector`LinterUI`Private`colorData["ButtonEdgeHover"], 
+            CodeInspector`LinterUI`Private`colorData["ButtonEdge"]]], 
+         FrameMargins -> {6 {1, 1}, {1, 1}}, Alignment -> {Center, Baseline}], 
+        Map[$CellContext`dockedCellMenuItem[$CellContext`notebook, #]& , 
+         CodeInspector`LinterUI`Private`varValue[$CellContext`notebook, All, 
+          "Cell"]], Appearance -> None]], $CellContext`dockedCellMenuItem[
+       Pattern[$CellContext`notebook, 
         Blank[NotebookObject]], 
-       Pattern[LinterUIDockedCell`Private`cell, 
+       Pattern[$CellContext`cell, 
         Blank[CellObject]]] := With[{}, Graphics[{
           Inset[
-           With[{LinterUIDockedCell`Private`expressionString = First[
+           With[{$CellContext`expressionString = First[
                FrontEndExecute[
                 FrontEnd`ExportPacket[
                  First[
-                  CodeInspector`LinterUI`Private`varValue[
-                  LinterUIDockedCell`Private`notebook, 
-                   LinterUIDockedCell`Private`cell, "CellContents"]], 
-                 "InputText"]]]}, {
-            LinterUIDockedCell`Private`noLineBreaks = 
-             StringReplace[
-              LinterUIDockedCell`Private`expressionString, "\n" -> " "]}, {
-            LinterUIDockedCell`Private`previewString = 
-             StringTake[LinterUIDockedCell`Private`noLineBreaks, {1, 
-                UpTo[LinterUIDockedCell`Private`$previewLength]}]}, 
+                  
+                  CodeInspector`LinterUI`Private`varValue[$CellContext`\
+notebook, $CellContext`cell, "CellContents"]], 
+                 "InputText"]]]}, {$CellContext`noLineBreaks = 
+             StringReplace[$CellContext`expressionString, "\n" -> 
+               " "]}, {$CellContext`previewString = 
+             StringTake[$CellContext`noLineBreaks, {1, 
+                UpTo[$CellContext`$previewLength]}]}, 
             CodeInspector`LinterUI`Private`styleData["FixedWidth"][
              If[
-             StringLength[LinterUIDockedCell`Private`expressionString] > 
-              LinterUIDockedCell`Private`$previewLength, 
-              StringDrop[LinterUIDockedCell`Private`previewString, -1] <> 
-              "\[Ellipsis]", LinterUIDockedCell`Private`previewString]]], {-1,
-            0}, {-1, 0}], 
+             StringLength[$CellContext`expressionString] > \
+$CellContext`$previewLength, StringDrop[$CellContext`previewString, -1] <> 
+              "\[Ellipsis]", $CellContext`previewString]]], {-1, 0}, {-1, 0}], 
           Inset[
-           CodeInspector`LinterUI`Private`lintSeverityCountsIconRow[
-           LinterUIDockedCell`Private`cell], {1, 0}, {1, 0}]}, 
-         ImageSize -> {300, 25}, AspectRatio -> Full, 
-         PlotRange -> {{-1, 1}, {-1, 1}}, ImagePadding -> None] :> (
-        SelectionMove[LinterUIDockedCell`Private`cell, All, Cell]; 
-        With[{LinterUIDockedCell`Private`nb = 
-           ParentNotebook[LinterUIDockedCell`Private`cell]}, 
+           
+           CodeInspector`LinterUI`Private`lintSeverityCountsIconRow[$\
+CellContext`cell], {1, 0}, {1, 0}]}, ImageSize -> {300, 25}, AspectRatio -> 
+         Full, PlotRange -> {{-1, 1}, {-1, 1}}, ImagePadding -> None] :> (
+        SelectionMove[$CellContext`cell, All, Cell]; 
+        With[{$CellContext`nb = ParentNotebook[$CellContext`cell]}, 
           FrontEndExecute[
-           FrontEnd`FrontEndToken[
-           LinterUIDockedCell`Private`nb, "OpenSelectionParents"]]]; 
-        SelectionMove[LinterUIDockedCell`Private`cell, After, Cell])], 
-     LinterUIDockedCell`Private`$previewLength = 28, 
+           FrontEnd`FrontEndToken[$CellContext`nb, "OpenSelectionParents"]]]; 
+        SelectionMove[$CellContext`cell, After, 
+          Cell])], $CellContext`$previewLength = 28, 
      CodeInspector`LinterUI`Private`applyToVar[
        Pattern[CodeInspector`LinterUI`Private`function, 
         Blank[]], {
@@ -828,14 +840,257 @@ dockedCellLintCounts]], DynamicModuleValues :> {}]},
      CodeInspector`LinterUI`Private`extractFirstList[
        Pattern[CodeInspector`LinterUI`Private`expr, 
         Blank[]]] := FirstCase[CodeInspector`LinterUI`Private`expr, 
-       Blank[List], {}, {0, Infinity}]}; 
-   LinterUIDockedCell`Private`notebook$$ = EvaluationNotebook[]),
-  UnsavedVariables:>{LinterUIDockedCell`Private`notebook$$}]],
+       Blank[List], {}, {0, Infinity}], 
+     CodeInspector`LinterUI`Private`styleData = <|"SectionHeader" -> (Style[#, 
+         SlotSequence[2], FontColor -> 
+         CodeInspector`LinterUI`Private`colorData["UIDark"], FontFamily -> 
+         "Source Sans Pro", FontWeight -> Plain, FontSize -> 13]& ), 
+       "RaftLabel" -> (Style[#, 
+         SlotSequence[2], FontColor -> 
+         CodeInspector`LinterUI`Private`colorData["RaftLabel"], FontFamily -> 
+         "Source Sans Pro", FontWeight -> Plain, FontSize -> 13]& ), 
+       "RaftMenuItem" -> (Style[#, 
+         SlotSequence[2], FontColor -> 
+         CodeInspector`LinterUI`Private`colorData["RaftMenuItem"], FontFamily -> 
+         "Source Sans Pro", FontWeight -> Plain, FontSize -> 13]& ), 
+       "RaftMenuSectionHeading" -> (Style[#, 
+         SlotSequence[2], FontColor -> 
+         CodeInspector`LinterUI`Private`colorData["RaftMenuSectionHeader"], 
+         FontFamily -> "Source Sans Pro", FontWeight -> Plain, FontSize -> 
+         13]& ), "Button" -> (Style[#, 
+         SlotSequence[2], FontColor -> 
+         CodeInspector`LinterUI`Private`colorData["ButtonText"], FontFamily -> 
+         "Source Sans Pro", FontWeight -> Plain, FontSize -> 14]& ), 
+       "ApplyButton" -> (Style[#, 
+         SlotSequence[2], FontColor -> 
+         CodeInspector`LinterUI`Private`colorData["ApplyButtonText"], 
+         FontFamily -> "Source Sans Pro", FontWeight -> Plain, FontSize -> 
+         12]& ), "FooterText" -> (Style[#, 
+         SlotSequence[2], FontColor -> 
+         CodeInspector`LinterUI`Private`colorData["UIDark"], FontFamily -> 
+         "Source Sans Pro", FontWeight -> Plain, FontSize -> 12]& ), 
+       "CellBracketButton" -> (Style[#, 
+         SlotSequence[2], FontColor -> 
+         CodeInspector`LinterUI`Private`colorData["CellBracketButtonText"], 
+         FontFamily -> "Source Sans Pro", FontWeight -> "SemiBold", FontSize -> 
+         10]& ), "FixedWidth" -> (Style[#, 
+         SlotSequence[2], FontColor -> Automatic, FontFamily -> 
+         "Source Code Pro", FontWeight -> "SemiBold", FontSize -> 12]& ), 
+       "TogglerIndicator" -> (Style[#, 
+         SlotSequence[2], FontFamily -> "Source Code Pro", FontWeight -> 
+         "SemiBold", FontSize -> 12]& ), "TogglerTagText" -> (Style[#, 
+         SlotSequence[2], FontColor -> 
+         CodeInspector`LinterUI`Private`lightDarkSwitched[
+           GrayLevel[0.2], 
+           GrayLevel[0.96221]], FontFamily -> "Source Sans Pro", FontWeight -> 
+         Plain, FontSize -> 12]& ), "TogglerPaletteHeadings" -> (Style[#, 
+         SlotSequence[2], FontColor -> 
+         CodeInspector`LinterUI`Private`lightDarkSwitched[
+           GrayLevel[0.4], 
+           GrayLevel[0.86066]], FontFamily -> "Source Sans Pro", FontWeight -> 
+         Plain, FontSize -> 13]& ), 
+       "TogglerPaletteSectionHeadings" -> (Style[#, 
+         SlotSequence[2], FontColor -> 
+         CodeInspector`LinterUI`Private`lightDarkSwitched[
+           GrayLevel[0.5], 
+           GrayLevel[0.79182]], FontFamily -> "Source Sans Pro", FontWeight -> 
+         "SemiBold", FontSize -> 12]& ), 
+       "TogglerPaletteSectionHeadingsAlt" -> (Style[#, 
+         SlotSequence[2], FontColor -> 
+         CodeInspector`LinterUI`Private`lightDarkSwitched[
+           GrayLevel[0.45], 
+           GrayLevel[0.82773]], FontFamily -> "Source Sans Pro", FontWeight -> 
+         "SemiBold", FontSize -> 12]& )|>, 
+     CodeInspector`LinterUI`Private`colorData := <|
+      "UIBack" :> CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.97], 
+         GrayLevel[0.23251]], "UIBackTransparent" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.97, 0.8], 
+         GrayLevel[0.23251, 0.8]], "UIEdge" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.85], 
+         GrayLevel[0.43665]], "CloseButton" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.6], 
+         GrayLevel[0.]], "CodeBack" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         RGBColor[0.99, 1, 1], 
+         RGBColor[0.25888, 0.25888, 0.25888]], "UIDark" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.4], 
+         GrayLevel[0.86066]], "WarningText" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         RGBColor[0.89, 0.14, 0.05], 
+         RGBColor[1, 0.44722, 0.36822]], "PopupEdge" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.75], 
+         GrayLevel[0.56142]], "PopupBack" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.97], 
+         GrayLevel[0.23251]], "Delimiter" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.85], 
+         GrayLevel[0.43665]], "CellBracketButtonText" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.25], 
+         GrayLevel[0.94437]], "CellBracketButtonBack" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.95], 
+         GrayLevel[0.18669]], "CellBracketButtonHover" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.98], 
+         GrayLevel[0.21418]], "CellBracketButtonEdge" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.9], 
+         GrayLevel[0.40341]], "ButtonBack" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[1], 
+         GrayLevel[0.26011]], "ButtonBackHover" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[1], 
+         GrayLevel[0.26011]], "ButtonBackMouseDown" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         Hue[0.55, 0.33, 1], 
+         Hue[0.56534, 0.47635, 0.17909]], "ButtonBackInactive" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[1], 
+         GrayLevel[0.26011]], "ButtonEdge" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.8], 
+         GrayLevel[0.50228]], "ButtonEdgeHover" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         Hue[0.55, 0.82, 0.87], 
+         Hue[0.55203, 0.72787, 0.93371]], "ButtonEdgeInactive" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.85], 
+         GrayLevel[0.43665]], "ButtonText" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.2], 
+         GrayLevel[0.96221]], "ButtonTextHover" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.2], 
+         GrayLevel[0.96221]], "ButtonTextInactive" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.7], 
+         GrayLevel[0.61536]], "ApplyButtonText" :> GrayLevel[1], 
+       "ApplyButtonBack" :> RGBColor[0.24706, 0.66667, 0.30196], 
+       "ApplyButtonBackHover" :> RGBColor[0.26667, 0.72549, 0.32941], 
+       "ApplyButtonEdge" :> RGBColor[0.26667, 0.73333, 0.32941], 
+       "HashButtonBack" :> CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[1], 
+         GrayLevel[0.26011]], "HashButtonBackHover" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         Hue[0.1, 0.26, 1], 
+         Hue[0.14513, 0.50835, 0.19535]], "HashButtonEdge" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         RGBColor[0.95294, 0.79, 0.37], 
+         RGBColor[0.56232, 0.49634, 0.24945]], "RaftBack" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         RGBColor[0.96, 0.97, 0.97], 
+         RGBColor[0.22082, 0.23413, 0.23418]], "RaftMenuBack" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[1], 
+         GrayLevel[0.26011]], "RaftItemHighlight" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         RGBColor[0.96, 0.97, 0.97], 
+         RGBColor[0.22082, 0.23413, 0.23418]], "RaftBackHover" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         RGBColor[0.99, 1, 1], 
+         RGBColor[0.25888, 0.25888, 0.25888]], "RaftBackOpen" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         RGBColor[0.94, 0.95, 0.96], 
+         RGBColor[0.20019, 0.21403, 0.23897]], "RaftFrame" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         RGBColor[0.75686, 0.82745, 0.88235], 
+         RGBColor[0.42037, 0.4924, 0.56009]], "RaftLabel" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.2], 
+         GrayLevel[0.96221]], "RaftMenuItem" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.2], 
+         GrayLevel[0.96221]], "Tag" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.3], 
+         GrayLevel[0.91765]], "RaftMenuSectionHeader" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.4], 
+         GrayLevel[0.86066]], "RaftDelimiter" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.9], 
+         GrayLevel[0.36222]], "CodeHighlight" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         RGBColor[1, 0.67, 0.73]], "TogglerEdge" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.975], 
+         GrayLevel[0.22123]], "TogglerEdgeHover" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         Hue[0.55, 0.82, 0.87], 
+         Hue[0.55203, 0.72787, 0.93371]], "TogglerBack" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.975], 
+         GrayLevel[0.23711]], "TogglerBackHover" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[1], 
+         GrayLevel[0.26011]], "TogglerPodEdge" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.9], 
+         GrayLevel[0.36222]], "TogglerDelim" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.8], 
+         GrayLevel[0.50228]], "TogglerText" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.2], 
+         GrayLevel[0.96221]], "TogglerCross" :> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         GrayLevel[0.8], 
+         GrayLevel[0.50228]], 3 -> RGBColor[0.94, 0.64, 0], "Formatting" -> 
+       RGBColor[0.94, 0.64, 0], "Remark" -> RGBColor[0.94, 0.64, 0], 
+       "ImplicitTimes" -> RGBColor[0.94, 0.64, 0], "Scoping" -> 
+       RGBColor[0.94, 0.64, 0], "3Subtle" -> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         RGBColor[0.94, 0.64, 0, 0.2], 
+         RGBColor[0.94, 0.64, 0, 0.6]], 2 -> RGBColor[1, 0.45, 0], "Warning" -> 
+       RGBColor[1, 0.45, 0], "2Subtle" -> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         RGBColor[1, 0.45, 0, 0.2], 
+         RGBColor[1, 0.45, 0, 0.6]], 1 -> RGBColor[0.82745, 0.00392, 0.00392],
+        "Error" -> RGBColor[0.82745, 0.00392, 0.00392], "Fatal" -> 
+       RGBColor[0.82745, 0.00392, 0.00392], "1Subtle" -> 
+       CodeInspector`LinterUI`Private`lightDarkSwitched[
+         RGBColor[1, 0.5, 0.5, 0.2], 
+         RGBColor[0.82745, 0.00392, 0.00392, 0.6]]|>, 
+     CodeInspector`LinterUI`Private`lightDarkSwitched[
+       Pattern[CodeInspector`LinterUI`Private`args, 
+        BlankSequence[]]] := Condition[
+       LightDarkSwitched[CodeInspector`LinterUI`Private`args], 
+       BoxForm`sufficientVersionQ[14.3]], Null, 
+     CodeInspector`LinterUI`Private`lightDarkSwitched[
+       Pattern[CodeInspector`LinterUI`Private`light, 
+        Blank[]], 
+       BlankNullSequence[]] := 
+     CodeInspector`LinterUI`Private`light}; $CellContext`notebook$$ = 
+    EvaluationNotebook[]),
+  UnsavedVariables:>{$CellContext`notebook$$}]],
  CellFrame->{{0, 0}, {1, 1}},
  CellFrameMargins->{{0, 0}, {0, 0}},
- CellFrameColor->GrayLevel[0.85],
- Background->GrayLevel[0.97],
- CellTags->"CodeAnalysisDockedCell"]}
+ CellFrameColor->Dynamic[
+   FEPrivate`If[
+    FEPrivate`SameQ[
+     FrontEnd`CurrentValue[
+      FrontEnd`EvaluationNotebook[], "LightDark"], "Dark"], 
+    GrayLevel[0.43665], 
+    GrayLevel[0.85]]],
+ Background->Dynamic[
+   FEPrivate`If[
+    FEPrivate`SameQ[
+     FrontEnd`CurrentValue[
+      FrontEnd`EvaluationNotebook[], "LightDark"], "Dark"], 
+    GrayLevel[0.23251], 
+    GrayLevel[0.97]]],
+ CellTags->
+  "CodeAnalysisDockedCell",ExpressionUUID->"999c20cc-73bd-8249-885c-\
+e2bfa214fb1c"]}
 @|
 @@resource CodeInspectorLocalizedExpressions English
 {

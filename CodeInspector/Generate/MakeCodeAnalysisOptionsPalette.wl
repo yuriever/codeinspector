@@ -141,6 +141,26 @@ disabledTags[notebook_NotebookObject, cell_:None] :=
     Except[_List] -> {}]
 
 
+With[
+  {
+    clearAllButton = (* this was pink-boxing, so inject the full evaluated set of boxes at build time *)
+      DynamicModule[{hoverQ},
+        DynamicWrapper[
+          Pane[
+            CodeInspector`LinterUI`Private`button[
+              Row[{togglerClearAllButton[Dynamic[hoverQ]], Spacer[3], Style["Stop Ignoring All Issues", FontSize -> 13]}],
+
+              CurrentValue[$FrontEnd, {CodeAssistOptions, "CodeToolsOptions", "CodeInspect", "Tags"}] = Inherited;
+              CurrentValue[InputNotebook[], {CodeAssistOptions, "CodeToolsOptions", "CodeInspect", "Tags"}] = Inherited;
+              CurrentValue[SelectedCells[InputNotebook[]], {CodeAssistOptions, "CodeToolsOptions", "CodeInspect", "Tags"}] = Inherited;
+              CodeInspector`LinterUI`Private`togglerTickle = RandomReal[],
+
+              FrameMargins -> {{5.5, 8}, {2, 0}}],
+            FrameMargins -> {{6, 0}, {3, 3}}],
+          
+          hoverQ = CurrentValue["MouseOver"]]]
+  },
+
 togglerPane[] :=
   With[
     {notebook = InputNotebook[]},
@@ -168,8 +188,8 @@ togglerPane[] :=
             Grid[
               {{
                 Spacer[(* 18 *)33],
-                Pane[CodeInspector`LinterUI`Private`styleData["TogglerPaletteHeadings"]["Issue", FontColor -> GrayLevel[.45]], ImageSize -> {(* 150 *)151, 17}],
-                Pane[CodeInspector`LinterUI`Private`styleData["TogglerPaletteHeadings"]["Scope", FontColor -> GrayLevel[.45]], ImageSize -> {110, 17}]}},
+                Pane[CodeInspector`LinterUI`Private`styleData["TogglerPaletteHeadingsAlt"]["Issue"], ImageSize -> {(* 150 *)151, 17}],
+                Pane[CodeInspector`LinterUI`Private`styleData["TogglerPaletteHeadingsAlt"]["Scope"], ImageSize -> {110, 17}]}},
               
               Dividers -> {Center, False},
               FrameStyle -> Directive[AbsoluteThickness[1], CodeInspector`LinterUI`Private`colorData[(* "TogglerDelim" *)"TogglerBack"]],
@@ -191,26 +211,12 @@ togglerPane[] :=
             
             Spacer[{1, 4}],
 
-            DynamicModule[{hoverQ},
-              DynamicWrapper[
-                Pane[
-                  CodeInspector`LinterUI`Private`button[
-                    Row[{togglerClearAllButton[Dynamic[hoverQ]], Spacer[3], Style["Stop Ignoring All Issues", FontSize -> 13]}],
+            clearAllButton},
 
-                    CurrentValue[$FrontEnd, {CodeAssistOptions, "CodeToolsOptions", "CodeInspect", "Tags"}] = Inherited;
-                    CurrentValue[InputNotebook[], {CodeAssistOptions, "CodeToolsOptions", "CodeInspect", "Tags"}] = Inherited;
-                    CurrentValue[SelectedCells[InputNotebook[]], {CodeAssistOptions, "CodeToolsOptions", "CodeInspect", "Tags"}] = Inherited;
-                    CodeInspector`LinterUI`Private`togglerTickle = RandomReal[],
-
-                    FrameMargins -> {{5.5, 8}, {2, 0}}],
-                  FrameMargins -> {{6, 0}, {3, 3}}],
-                
-                hoverQ = CurrentValue["MouseOver"]]]},
-
-          BaseStyle -> {FontSize -> 1, FontColor -> RGBColor[0,0,0,0]},
+          BaseStyle -> {FontSize -> 1, FontColor -> GrayLevel[0], FontOpacity -> 0},
           Spacings -> {0, {0, 0, 4, {0}}},
           ItemSize -> {0, 0}, Spacings -> 0,
-          Dividers -> {None, {3 -> GrayLevel[.8]}}]],
+          Dividers -> {None, {3 -> CodeInspector`LinterUI`Private`lightDarkSwitched[(*Feature*)GrayLevel[0.8], GrayLevel[0.5022800]]}}]],
 
       ImageSize -> {335, 243},
       Alignment -> {Center, Top}],
@@ -220,6 +226,7 @@ togglerPane[] :=
       FrameStyle -> Directive[AbsoluteThickness[1], CodeInspector`LinterUI`Private`colorData["TogglerPodEdge"]],
       FrameMargins -> None,
       RoundingRadius -> 3]]
+]
 
 
 togglerClearAllButton[Dynamic[hoverQ_]] :=
@@ -314,13 +321,13 @@ Module[{togglerPalette, res},
       DynamicModule[{},
         Column[{
           Spacer[{1, 10}],
-          Row[{Spacer[8], CodeInspector`LinterUI`Private`styleData["TogglerPaletteSectionHeadings"]["Ignored Issues"]}],
+          Row[{Spacer[8], Dynamic @ CodeInspector`LinterUI`Private`styleData["TogglerPaletteSectionHeadings"]["Ignored Issues"]}],
           Spacer[{1, 4}],
           Pane[
             Dynamic[
               CodeInspector`LinterUI`Private`togglerTickle;
               With[{nb = InputNotebook[]}, AbsoluteCurrentValue[nb, "SelectionHasUpdatedStyles"]];
-              Dynamic[togglerPane[], SingleEvaluation -> True, Background -> Hue[RandomReal[], 0, 0, 0]]],
+              Dynamic[togglerPane[], SingleEvaluation -> True(*, Background -> Hue[RandomReal[], 0, 0, 0]*)]],
             FrameMargins -> {{8, 8}, {0, 0}},
             Alignment -> Center],
           Spacer[{1, 3}]},
@@ -328,18 +335,18 @@ Module[{togglerPalette, res},
           BaseStyle -> {FontSize -> 1},
           Spacings -> 1]],
       {
-        getDisabledTags,
-        constructTagEnabledPath,
-        disabledTags,
-        togglerPane,
-        togglerClearAllButton,
-        clearSuppressionControl,
+        CodeInspector`Generate`MakeCodeAnalysisOptionsPalette`Private`getDisabledTags,
+        CodeInspector`Generate`MakeCodeAnalysisOptionsPalette`Private`constructTagEnabledPath,
+        CodeInspector`Generate`MakeCodeAnalysisOptionsPalette`Private`disabledTags,
+        CodeInspector`Generate`MakeCodeAnalysisOptionsPalette`Private`togglerPane,
+        CodeInspector`Generate`MakeCodeAnalysisOptionsPalette`Private`togglerClearAllButton,
+        CodeInspector`Generate`MakeCodeAnalysisOptionsPalette`Private`clearSuppressionControl,
         CodeInspector`LinterUI`Private`colorData,
-        CodeInspector`LinterUI`Private`styleData,
-        CodeInspector`LinterUI`Private`button
+        CodeInspector`LinterUI`Private`styleData, 
+        CodeInspector`LinterUI`Private`lightDarkSwitched
       }],
 
-    Background -> GrayLevel[1],
+    Background -> Dynamic[If[BoxForm`sufficientVersionQ[14.3], System`SystemColor["Window"], GrayLevel[1]]],
     WindowTitle -> "Code Analysis Options",
     MenuSortingValue -> 1150, (* Group the Code palettes together -- 416653 *)
     Saveable -> False,

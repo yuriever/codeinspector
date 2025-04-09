@@ -35,86 +35,91 @@ suppressMouseDown9patch =
 suppressMouseDownEffect = {"Default" -> suppressMouseDown9patch, "Hover" -> suppressMouseDown9patch, "Pressed" -> suppressMouseDown9patch}
 
 
-colorData = With[
-  {
-    errorSev3 = RGBColor[0.9400000000000001, 0.64, 0],
-    errorSev2 = RGBColor[1, 0.45, 0],
-    errorSev1 = RGBColor[0.827451, 0.00392157, 0.00392157]
-  },
-  
+lightDarkSwitched[args__] := System`LightDarkSwitched[args] /; BoxForm`sufficientVersionQ[14.3]
+lightDarkSwitched[light_, ___] := light
+
+
+colorData :=
   <|
-    (* General. *)
-    "UIBack" -> GrayLevel[.97],
-    "UIEdge" -> GrayLevel[.85],
-    "CloseButton" -> GrayLevel[.6],
-    "CodeBack" -> RGBColor[0.99, 1, 1],
-    "UIDark" -> (*RGBColor[0.53, 0.34, 0]*)GrayLevel[.4],
-    "WarningText" -> RGBColor[0.89, 0.14, 0.05],
-    "PopupEdge" -> GrayLevel[0.75],
-    "PopupBack" -> GrayLevel[0.97],
-    "Delimiter" -> GrayLevel[.85],
+    (* General. Dominant color: GrayLevel[0.97] *)
+    "UIBack"            :> lightDarkSwitched[(*Background*)GrayLevel[0.9700000], GrayLevel[0.2325100]],
+    "UIBackTransparent" :> lightDarkSwitched[(*Background*)GrayLevel[0.9700000, 0.8], GrayLevel[0.2325100, 0.8]],
+    "UIEdge"            :> lightDarkSwitched[(*Feature*)   GrayLevel[0.8500000], GrayLevel[0.4366500]],
+    "CloseButton"       :> lightDarkSwitched[(*Background*)GrayLevel[0.6000000], GrayLevel[0.]],
+    "CodeBack"          :> lightDarkSwitched[(*Background*)RGBColor[0.9900000, 1, 1], RGBColor[0.25888, 0.25888, 0.25888]],
+    "UIDark"            :> lightDarkSwitched[(*Feature*)   GrayLevel[0.4], GrayLevel[0.8606600]],
+    "WarningText"       :> lightDarkSwitched[(*Feature*)   RGBColor[0.8900000, 0.14, 0.05], RGBColor[1, 0.4472200, 0.3682200]],
+    "PopupEdge"         :> lightDarkSwitched[(*Feature*)   GrayLevel[0.7500000], GrayLevel[0.56142]],
+    "PopupBack"         :> lightDarkSwitched[(*Background*)GrayLevel[0.9700000], GrayLevel[0.2325100]],
+    "Delimiter"         :> lightDarkSwitched[(*Feature*)   GrayLevel[0.8500000], GrayLevel[0.4366500]],
 
-    (* Cell Bracket Button colors. *)
-    "CellBracketButtonText" -> GrayLevel[.25],
-    "CellBracketButtonBack" -> GrayLevel[.95],
-    "CellBracketButtonHover" -> GrayLevel[.98],
-    "CellBracketButtonEdge" -> GrayLevel[.9],
+    (* Cell Bracket Button colors. Dominant color: GrayLevel[1] *)
+    "CellBracketButtonText"  :> lightDarkSwitched[(*Feature*)   GrayLevel[0.25], GrayLevel[0.94437]],
+    "CellBracketButtonBack"  :> lightDarkSwitched[(*Background*)GrayLevel[0.9500000], GrayLevel[0.1866900]],
+    "CellBracketButtonHover" :> lightDarkSwitched[(*Background*)GrayLevel[0.9800000], GrayLevel[0.21418]],
+    "CellBracketButtonEdge"  :> lightDarkSwitched[(*Feature*)   GrayLevel[0.9], GrayLevel[0.4034100]],
     
-    (* Button colors. *)
-    "ButtonBack" -> White,
-    "ButtonBackHover" -> White,
-    "ButtonBackMouseDown" -> Hue[0.55, 0.33, 1],
-    "ButtonBackInactive" -> White,
-    "ButtonEdge" -> GrayLevel[.8],
-    "ButtonEdgeHover" -> Hue[0.55,0.82,0.87],
-    "ButtonEdgeInactive" -> GrayLevel[.85],
-    "ButtonText" -> GrayLevel[0.2],
-    "ButtonTextHover" -> GrayLevel[0.2],
-    "ButtonTextInactive" -> GrayLevel[0.7],
-    "ApplyButtonText" -> RGBColor[1, 1, 1],
-    "ApplyButtonBack" -> RGBColor[0.247059, 0.666667, 0.301961],
-    "ApplyButtonBackHover" -> RGBColor[0.266667, 0.72549, 0.329412],
-    "ApplyButtonEdge" -> RGBColor[0.266667, 0.733333, 0.329412],
-    "HashButtonBack" -> White,
-    "HashButtonBackHover" -> Hue[0.1, 0.26, 1],
-    "HashButtonEdge" -> RGBColor[Rational[81, 85], 0.79, 0.37],
+    (* Button colors. Dominant color: GrayLevel[0.97] *)
+    "ButtonBack"           :> lightDarkSwitched[(*Background*)GrayLevel[1], GrayLevel[0.26011]],
+    "ButtonBackHover"      :> lightDarkSwitched[(*Background*)GrayLevel[1], GrayLevel[0.26011]],
+    "ButtonBackMouseDown"  :> lightDarkSwitched[(*Background*)Hue[0.55, 0.33, 1], Hue[0.5653400, 0.4763500, 0.1790900]],
+    "ButtonBackInactive"   :> lightDarkSwitched[(*Background*)GrayLevel[1], GrayLevel[0.26011]],
+    "ButtonEdge"           :> lightDarkSwitched[(*Feature*)   GrayLevel[0.8], GrayLevel[0.5022800]],
+    "ButtonEdgeHover"      :> lightDarkSwitched[(*Feature*)   Hue[0.55, 0.8200000, 0.8700000], Hue[0.55203, 0.72787, 0.93371]],
+    "ButtonEdgeInactive"   :> lightDarkSwitched[(*Feature*)   GrayLevel[0.8500000], GrayLevel[0.4366500]],
+    "ButtonText"           :> lightDarkSwitched[(*Feature*)   GrayLevel[0.2], GrayLevel[0.9622100]],
+    "ButtonTextHover"      :> lightDarkSwitched[(*Feature*)   GrayLevel[0.2], GrayLevel[0.9622100]],
+    "ButtonTextInactive"   :> lightDarkSwitched[(*Feature*)   GrayLevel[0.7000000], GrayLevel[0.61536]],
+    "ApplyButtonText"      :> GrayLevel[1],                            (* reverse-contrast button *)
+    "ApplyButtonBack"      :> RGBColor[0.2470600, 0.6666700, 0.30196], (* reverse-contrast button *)
+    "ApplyButtonBackHover" :> RGBColor[0.26667, 0.7254900, 0.3294100], (* reverse-contrast button *)
+    "ApplyButtonEdge"      :> RGBColor[0.26667, 0.73333, 0.3294100],   (* reverse-contrast button *)
+    "HashButtonBack"       :> lightDarkSwitched[(*Background*)GrayLevel[1], GrayLevel[0.26011]],
+    "HashButtonBackHover"  :> lightDarkSwitched[(*Background*)Hue[0.1, 0.26, 1], Hue[0.14513, 0.5083500, 0.1953500]],
+    "HashButtonEdge"       :> lightDarkSwitched[(*Feature*)   RGBColor[0.9529400, 0.79, 0.3700000], RGBColor[0.56232, 0.4963400, 0.2494500]],
     
-    (* Raft colors. *)
-    "RaftBack" -> RGBColor[0.96, 0.97, 0.97],
-    "RaftMenuBack" -> White,
-    "RaftItemHighlight" -> RGBColor[0.96, 0.97, 0.97],
-    "RaftBackHover" -> RGBColor[0.99, 1, 1],
-    "RaftBackOpen" -> RGBColor[0.94, 0.95, 0.96],
-    "RaftFrame" -> RGBColor["#C1D3E1"],
-    "RaftLabel" -> GrayLevel[0.2],
-    "RaftMenuItem" -> GrayLevel[0.2],
-    "Tag" -> GrayLevel[.3],
-    "RaftMenuSectionHeader" -> GrayLevel[.4],
-    "RaftDelimiter" -> GrayLevel[0.9],
-    "CodeHighlight" -> RGBColor[1, 0.67, 0.73],
+    (* Raft colors. Dominant color: GrayLevel[0.97] *)
+    "RaftBack"              :> lightDarkSwitched[(*Background*)RGBColor[0.9600000, 0.9700000, 0.9700000], RGBColor[0.2208200, 0.2341300, 0.2341800]],
+    "RaftMenuBack"          :> lightDarkSwitched[(*Background*)GrayLevel[1], GrayLevel[0.26011]],
+    "RaftItemHighlight"     :> lightDarkSwitched[(*Background*)RGBColor[0.9600000, 0.9700000, 0.9700000], RGBColor[0.2208200, 0.2341300, 0.2341800]],
+    "RaftBackHover"         :> lightDarkSwitched[(*Background*)RGBColor[0.9900000, 1, 1], RGBColor[0.25888, 0.25888, 0.25888]],
+    "RaftBackOpen"          :> lightDarkSwitched[(*Background*)RGBColor[0.9400000, 0.9500000, 0.9600000], RGBColor[0.20019, 0.2140300, 0.2389700]],
+    "RaftFrame"             :> lightDarkSwitched[(*Feature*)   RGBColor[0.7568600, 0.82745, 0.8823500], RGBColor[0.42037, 0.4924000, 0.5600900]],
+    "RaftLabel"             :> lightDarkSwitched[(*Feature*)   GrayLevel[0.2], GrayLevel[0.9622100]],
+    "RaftMenuItem"          :> lightDarkSwitched[(*Feature*)   GrayLevel[0.2], GrayLevel[0.9622100]],
+    "Tag"                   :> lightDarkSwitched[(*Feature*)   GrayLevel[0.3000000], GrayLevel[0.9176500]],
+    "RaftMenuSectionHeader" :> lightDarkSwitched[(*Feature*)   GrayLevel[0.4], GrayLevel[0.8606600]],
+    "RaftDelimiter"         :> lightDarkSwitched[(*Feature*)   GrayLevel[0.9], GrayLevel[0.3622200]],
+    "CodeHighlight"         :> lightDarkSwitched[(*Content*)   RGBColor[1, 0.67, 0.7300000]],
 
-    (* Tag Toggler *)
-    "TogglerEdge" -> GrayLevel[.975],
-    "TogglerEdgeHover" -> Hue[0.55,0.82,0.87],
-    "TogglerBack" -> GrayLevel[.975],
-    "TogglerBackHover" -> White,
-    "TogglerPodEdge" -> GrayLevel[.9],
-    "TogglerDelim" -> GrayLevel[.8],
-    "TogglerText" -> GrayLevel[.2],
-    "TogglerCross" -> GrayLevel[.8],
+    (* Tag Toggler. Dominant color: GrayLevel[0.97] *)
+    "TogglerEdge"      :> lightDarkSwitched[(*Feature*)   GrayLevel[0.9750000], GrayLevel[0.22123]],
+    "TogglerEdgeHover" :> lightDarkSwitched[(*Feature*)   Hue[0.55, 0.8200000, 0.8700000], Hue[0.55203, 0.72787, 0.93371]],
+    "TogglerBack"      :> lightDarkSwitched[(*Background*)GrayLevel[0.9750000], GrayLevel[0.2371100]],
+    "TogglerBackHover" :> lightDarkSwitched[(*Background*)GrayLevel[1], GrayLevel[0.26011]],
+    "TogglerPodEdge"   :> lightDarkSwitched[(*Feature*)   GrayLevel[0.9], GrayLevel[0.3622200]],
+    "TogglerDelim"     :> lightDarkSwitched[(*Feature*)   GrayLevel[0.8], GrayLevel[0.5022800]],
+    "TogglerText"      :> lightDarkSwitched[(*Feature*)   GrayLevel[0.2], GrayLevel[0.9622100]],
+    "TogglerCross"     :> lightDarkSwitched[(*Feature*)   GrayLevel[0.8], GrayLevel[0.5022800]],
     
-    (* Error types. *)
-    "Formatting" -> errorSev3,
-    "Remark" -> errorSev3,
-    "ImplicitTimes" -> errorSev3,
-    "Scoping" -> errorSev3,
-    "Warning" -> errorSev2,
-    "Error" -> errorSev1,
-    "Fatal" -> errorSev1,
-    3 -> errorSev3,
-    2 -> errorSev2,
-    1 -> errorSev1
-  |>];
+    (* Error types. Light- and dark-mode colors are the same, except background opacity is boosted in dark-mode *)
+    3               -> RGBColor[0.9400000, 0.64, 0],
+    "Formatting"    -> RGBColor[0.9400000, 0.64, 0],
+    "Remark"        -> RGBColor[0.9400000, 0.64, 0],
+    "ImplicitTimes" -> RGBColor[0.9400000, 0.64, 0],
+    "Scoping"       -> RGBColor[0.9400000, 0.64, 0],
+    "3Subtle"       -> lightDarkSwitched[RGBColor[0.9400000, 0.64, 0, 0.2], RGBColor[0.9400000, 0.64, 0, 0.6]],
+    
+    2         -> RGBColor[1, 0.45, 0],
+    "Warning" -> RGBColor[1, 0.45, 0],
+    "2Subtle" -> lightDarkSwitched[RGBColor[1, 0.45, 0, 0.2], RGBColor[1, 0.45, 0, 0.6]],
+    
+    1         -> RGBColor[0.82745, 0.0039200, 0.0039200],
+    "Error"   -> RGBColor[0.82745, 0.0039200, 0.0039200],
+    "Fatal"   -> RGBColor[0.82745, 0.0039200, 0.0039200],
+    (* Light-mode uses Pink as the base instead of the red because the transparent red is too washed out. *)
+    "1Subtle" -> lightDarkSwitched[RGBColor[1, 0.5, 0.5, 0.2], RGBColor[0.82745, 0.0039200, 0.0039200, 0.6]]
+  |>;
 
 
 styleData = <|
@@ -144,19 +149,22 @@ styleData = <|
     Style[#1, ##2, FontColor -> colorData["CellBracketButtonText"], FontFamily -> "Source Sans Pro", FontWeight -> "SemiBold", FontSize -> 10]],
   
   "FixedWidth" -> Function[
-    Style[#1, ##2, FontColor -> colorData["ButtonText"], FontFamily -> "Source Code Pro", FontWeight -> "SemiBold", FontSize -> 12]],
+    Style[#1, ##2, FontColor -> (*colorData["ButtonText"]*)Automatic, FontFamily -> "Source Code Pro", FontWeight -> "SemiBold", FontSize -> 12]],
   
   "TogglerIndicator" -> Function[
     Style[#1, ##2, FontFamily -> "Source Code Pro", FontWeight -> "SemiBold", FontSize -> 12]],
   
   "TogglerTagText" -> Function[
-    Style[#1, ##2, FontColor -> GrayLevel[.2], FontFamily -> "Source Sans Pro", FontWeight -> Plain, FontSize -> 12]],
+    Style[#1, ##2, FontColor -> lightDarkSwitched[(*Feature*)GrayLevel[0.2], GrayLevel[0.9622100]], FontFamily -> "Source Sans Pro", FontWeight -> Plain, FontSize -> 12]],
   
   "TogglerPaletteHeadings" -> Function[
-    Style[#1, ##2, FontColor -> GrayLevel[.4], FontFamily -> "Source Sans Pro", FontWeight -> Plain, FontSize -> 13]],
+    Style[#1, ##2, FontColor -> lightDarkSwitched[(*Feature*)GrayLevel[0.4], GrayLevel[0.8606600]], FontFamily -> "Source Sans Pro", FontWeight -> Plain, FontSize -> 13]],
 
   "TogglerPaletteSectionHeadings" -> Function[
-    Style[#1, ##2, FontColor -> GrayLevel[.5], FontFamily -> "Source Sans Pro", FontWeight -> "SemiBold", FontSize -> 12]]
+    Style[#1, ##2, FontColor -> lightDarkSwitched[(*Feature*)GrayLevel[0.5], GrayLevel[0.7918200]], FontFamily -> "Source Sans Pro", FontWeight -> "SemiBold", FontSize -> 12]],
+
+  "TogglerPaletteSectionHeadingsAlt" -> Function[
+    Style[#1, ##2, FontColor -> lightDarkSwitched[(*Feature*)GrayLevel[0.45], GrayLevel[0.8277300]], FontFamily -> "Source Sans Pro", FontWeight -> "SemiBold", FontSize -> 12]]
 |>;
 
 
@@ -181,7 +189,9 @@ iconData = <|
   (* Exclamation mark. *)
   "Exclam" -> Function[color,
     Graphics[
-      {EdgeForm[], FaceForm[color],
+      {EdgeForm[], 
+        {FaceForm[GrayLevel[1]], Disk[{9, 9}, 6]}, (* dark-mode is low contrast without a white "!" icon *)
+        FaceForm[color],
         FilledCurve[{{{1, 4, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}}, {{1, 4, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}}, 
           {{0, 2, 0}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}}}, {{{9.015, 17.369999999999997}, {4.4558892299999995, 17.369999999999997}, {0.76, 13.64500928}, {0.76, 
           9.049999999999999}, {0.76, 4.454992000000001}, {4.4558892299999995, 0.7300000000000004}, {9.015, 0.7300000000000004}, {13.574109499999999, 0.7300000000000004}, {17.270000000000003, 4.454992000000001}, {17.270000000000003, 
@@ -268,7 +278,7 @@ iconData = <|
       {25., 8.}, {25., 4.}, {25., 1.788800000000002}, {23.2112, 0.}, {21., 0.}, {4., 
       0.}, {1.7888, 0.}, {0., 1.788800000000002}, {0., 4.}, {0., 8.}, {0., 10.2112}, 
       {1.7888, 12.}, {4., 12.}}}],
-    FaceForm[White],
+    FaceForm[lightDarkSwitched[(*Content*)GrayLevel[1]]],
     FilledCurve[{{{1, 4, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, 
       {1, 3, 3}}}, {{{6.54, 2.6499999999999986}, {6.54, 3.0072659999999978}, 
       {6.730599000000001, 3.3373929999999987}, {7.04, 3.516025000000001}, {7.349401, 
@@ -477,7 +487,7 @@ iconData = <|
   "PopOut" -> (*Function[color,
     Graphics[{
       color, Disk[{0, 0}, 1],
-      CapForm["Round"], White,
+      CapForm["Round"], lightDarkSwitched[(*Content*)GrayLevel[1]],
       AbsoluteThickness[1.5], Line[{{.5{-1, 0}, .5{1, 0}}, {.5{0, 1}, .5{0, -1}}}]},
       PlotRange -> 1, ImagePadding -> 1, ImageSize -> 15{1, 1}]]*)
   Function[color,
@@ -975,8 +985,10 @@ Module[{codeBoxes, unfilteredLints, allLintsAndTheirSources, lints},
   varSet[{notebook, cell, "Lints"}, lints]
 ]
 
+
 (* ::Subsection::Closed:: *)
 (*Additional Descriptions Menu Item*)
+
 
 makeRaftMenuAdditionalDescriptionItem[
   additionalDescription_,
@@ -1443,7 +1455,7 @@ With[
       ],
       ItemSize -> {Full, 0}, Spacings -> 0, Alignment -> Left],
     
-    Frame -> True, FrameMargins -> 3, Background -> White, RoundingRadius -> 0,
+    Frame -> True, FrameMargins -> 3, Background -> lightDarkSwitched[(*Background*)GrayLevel[1], GrayLevel[0.26011]], RoundingRadius -> 0,
     FrameStyle -> Directive[AbsoluteThickness[1], colorData["RaftFrame"]],
     ImageMargins -> {
       Switch[raftType,
@@ -1948,7 +1960,7 @@ With[
             (* The grey overlay layer. *)
             Highlighted[Spacer[0],
               RoundingRadius -> $UIRoundingRadius,
-              Background -> Opacity[.8, colorData["UIBack"]],
+              Background -> colorData["UIBackTransparent"],
               ImageSize -> Dynamic[{Full, Last[uiCellSize] - 2(*fudge factor*)}]]
           },
           
@@ -2252,8 +2264,11 @@ Block[{raftAttachedQ, mouseOver},
                     FontVariations -> {"Underlight" -> colorData[lint["Severity"]]},
                     (* Highlight the linted boxes if the lint state is "hoverXXXX" or "active". *)
                     Background -> Dynamic[Switch[varValue[notebook, cell, lint, "State"],
-                      (* The severity 1 color is a bit dark for highlighting compared to the others, so replace it with Pink. *)
-                      "inactive", Opacity[.2, Replace[colorData[lint["Severity"]], RGBColor[0.827451, 0.00392157, 0.00392157] -> Pink]],
+                      "inactive",
+                        Switch[lint["Severity"],
+                          3 | "Formatting" | "Remark" | "ImplicitTimes" | "Scoping", colorData["3Subtle"],
+                          2 | "Warning", colorData["2Subtle"],
+                          1 | "Error" | "Fatal", colorData["1Subtle"]],
                       "hoverInPlace" | "hoverMooring" | "active", colorData["CodeHighlight"],
                       (* Failsafe. *)
                       _, None]]],
