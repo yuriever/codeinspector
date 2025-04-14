@@ -45,7 +45,7 @@ colorData :=
     "UIBack"            :> lightDarkSwitched[(*Background*)GrayLevel[0.9700000], GrayLevel[0.2325100]],
     "UIBackTransparent" :> lightDarkSwitched[(*Background*)GrayLevel[0.9700000, 0.8], GrayLevel[0.2325100, 0.8]],
     "UIEdge"            :> lightDarkSwitched[(*Feature*)   GrayLevel[0.8500000], GrayLevel[0.4366500]],
-    "CloseButton"       :> lightDarkSwitched[(*Background*)GrayLevel[0.6000000], GrayLevel[0.]],
+    "CloseButton"       :> lightDarkSwitched[(*Custom*)    GrayLevel[0.6000000], GrayLevel[0.4]],
     "CodeBack"          :> lightDarkSwitched[(*Background*)RGBColor[0.9900000, 1, 1], RGBColor[0.25888, 0.25888, 0.25888]],
     "UIDark"            :> lightDarkSwitched[(*Feature*)   GrayLevel[0.4], GrayLevel[0.8606600]],
     "WarningText"       :> lightDarkSwitched[(*Feature*)   RGBColor[0.8900000, 0.14, 0.05], RGBColor[1, 0.4472200, 0.3682200]],
@@ -546,7 +546,7 @@ closeIcon[offset_, pos_] := With[{crossSize = 2, diskRad = 6},
   {
     colorData["CloseButton"],
     Disk[Offset[offset, pos], Offset[diskRad]],
-    colorData["UIBack"], AbsoluteThickness[1.5], CapForm["Round"],
+    GrayLevel[0.97](*colorData["UIBack"]*), AbsoluteThickness[1.5], CapForm["Round"],
     Line[{{Offset[offset + crossSize * {-1, 1}, pos], Offset[offset + crossSize * {1, -1}, pos]},
       {Offset[offset + crossSize * {-1, -1}, pos], Offset[offset + crossSize * {1, 1}, pos]}}]}]
 
