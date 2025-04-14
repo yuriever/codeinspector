@@ -273,10 +273,10 @@ dockedCell =
         CodeInspector`LinterUI`Private`colorData,
         CodeInspector`LinterUI`Private`lightDarkSwitched}], (* In case kernel is quit we need to cache all style *)
 
-    Background -> Dynamic[FEPrivate`If[FEPrivate`SameQ[FrontEnd`CurrentValue[FrontEnd`EvaluationNotebook[], "LightDark"], "Dark"], GrayLevel[0.2325100], GrayLevel[0.9700000]]],
+    Background -> Dynamic[FEPrivate`If[FEPrivate`SameQ[FrontEnd`AbsoluteCurrentValue[FrontEnd`EvaluationNotebook[], "LightDark"], "Dark"], GrayLevel[0.2325100], GrayLevel[0.9700000]]],
     (* Draw frame lines at the top and bottom of the cell. *)
     CellFrame -> {{0, 0}, {1, 1}},
-    CellFrameColor -> Dynamic[FEPrivate`If[FEPrivate`SameQ[FrontEnd`CurrentValue[FrontEnd`EvaluationNotebook[], "LightDark"], "Dark"], GrayLevel[0.4366500], GrayLevel[0.8500000]]],
+    CellFrameColor -> Dynamic[FEPrivate`If[FEPrivate`SameQ[FrontEnd`AbsoluteCurrentValue[FrontEnd`EvaluationNotebook[], "LightDark"], "Dark"], GrayLevel[0.4366500], GrayLevel[0.8500000]]],
     CellFrameMargins -> {{0, 0}, {0, 0}},
     CellTags -> "CodeAnalysisDockedCell"];
 

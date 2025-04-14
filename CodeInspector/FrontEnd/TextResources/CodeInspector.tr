@@ -1077,20 +1077,20 @@ CellContext`cell], {1, 0}, {1, 0}]}, ImageSize -> {300, 25}, AspectRatio ->
  CellFrameColor->Dynamic[
    FEPrivate`If[
     FEPrivate`SameQ[
-     FrontEnd`CurrentValue[
+     FrontEnd`AbsoluteCurrentValue[
       FrontEnd`EvaluationNotebook[], "LightDark"], "Dark"], 
     GrayLevel[0.43665], 
     GrayLevel[0.85]]],
  Background->Dynamic[
    FEPrivate`If[
     FEPrivate`SameQ[
-     FrontEnd`CurrentValue[
+     FrontEnd`AbsoluteCurrentValue[
       FrontEnd`EvaluationNotebook[], "LightDark"], "Dark"], 
     GrayLevel[0.23251], 
     GrayLevel[0.97]]],
  CellTags->
-  "CodeAnalysisDockedCell",ExpressionUUID->"999c20cc-73bd-8249-885c-\
-e2bfa214fb1c"]}
+  "CodeAnalysisDockedCell",ExpressionUUID->"609e149e-8bea-be47-83c4-\
+561ce835647d"]}
 @|
 @@resource CodeInspectorLocalizedExpressions English
 {
