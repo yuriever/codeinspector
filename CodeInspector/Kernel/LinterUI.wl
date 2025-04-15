@@ -114,11 +114,11 @@ colorData :=
     "Warning" -> RGBColor[1, 0.45, 0],
     "2Subtle" -> lightDarkSwitched[RGBColor[1, 0.45, 0, 0.2], RGBColor[1, 0.45, 0, 0.6]],
     
-    1         -> RGBColor[0.82745, 0.0039200, 0.0039200],
-    "Error"   -> RGBColor[0.82745, 0.0039200, 0.0039200],
-    "Fatal"   -> RGBColor[0.82745, 0.0039200, 0.0039200],
+    1         -> lightDarkSwitched[(*Custom*)RGBColor[0.82745, 0.0039200, 0.0039200], RGBColor["#f2493c"]],
+    "Error"   -> lightDarkSwitched[(*Custom*)RGBColor[0.82745, 0.0039200, 0.0039200], RGBColor["#f2493c"]],
+    "Fatal"   -> lightDarkSwitched[(*Custom*)RGBColor[0.82745, 0.0039200, 0.0039200], RGBColor["#f2493c"]],
     (* Light-mode uses Pink as the base instead of the red because the transparent red is too washed out. *)
-    "1Subtle" -> lightDarkSwitched[RGBColor[1, 0.5, 0.5, 0.2], RGBColor[0.82745, 0.0039200, 0.0039200, 0.6]]
+    "1Subtle" -> lightDarkSwitched[(*Custom*)RGBColor[1, 0.5, 0.5, 0.2], RGBColor["#f2493c"]]
   |>;
 
 
