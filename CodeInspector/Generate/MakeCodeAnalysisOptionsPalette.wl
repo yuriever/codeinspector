@@ -346,7 +346,7 @@ Module[{togglerPalette, res},
         CodeInspector`LinterUI`Private`lightDarkSwitched
       }],
 
-    Background -> Dynamic[If[BoxForm`sufficientVersionQ[14.3], System`SystemColor["Window"], GrayLevel[1]]],
+    Background -> Dynamic[FEPrivate`If[FEPrivate`GreaterEqual[FrontEnd`$NotebookVersionNumber, 14.3], System`SystemColor["Window"], GrayLevel[1]]],
     WindowTitle -> "Code Analysis Options",
     MenuSortingValue -> 1150, (* Group the Code palettes together -- 416653 *)
     Saveable -> False,
