@@ -364,6 +364,9 @@ niceToString[s_Symbol] := SymbolName[s]
 niceToString[e_] := ToString[e]
 
 
+BoxForm`MakeConditionalTextFormattingRule[InspectionObject]
+
+
 Format[lint:InspectionObject[tag_String, description_String, severity_String, data_Association], StandardForm] :=
 Catch[
 Module[{g, bolded, actions, actionButtonsOrFailures, format, menu,

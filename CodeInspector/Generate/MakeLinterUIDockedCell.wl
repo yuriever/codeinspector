@@ -10,7 +10,7 @@ BeginPackage["LinterUIDockedCell`"]
 Begin["`Private`"]
 
 
-Needs["CodeInspector`"]
+Get[FileNameJoin[{ParentDirectory @ NotebookDirectory[], "Kernel", "LinterUI.wl"}]]
 
 
 (* ::Text:: *)
@@ -109,9 +109,11 @@ dockedCellSeverityCountsButton[notebook_NotebookObject] :=
         
         ImageSize -> {Automatic, 19},
         BaselinePosition -> Baseline,
-        Background -> White,
+        Background -> Dynamic[CodeInspector`LinterUI`Private`colorData["ButtonBack"]],
         Frame -> True,
-        FrameStyle -> Dynamic[If[CurrentValue["MouseOver"], Hue[0.55,0.82,0.87], GrayLevel[.8]]],
+        FrameStyle -> Dynamic[If[CurrentValue["MouseOver"],
+          CodeInspector`LinterUI`Private`colorData["ButtonEdgeHover"],
+          CodeInspector`LinterUI`Private`colorData["ButtonEdge"]]],
         FrameMargins -> {6{1, 1}, {1, 1}},
         Alignment -> {Center, Baseline}],
       
@@ -131,7 +133,7 @@ dockedCell =
             Inset[
               Row[
                 {
-                  Pane[CodeInspector`LinterUI`Private`styleData["SectionHeader"]["Code Analysis"], BaselinePosition -> (Baseline -> Scaled[.65])],
+                  Pane[Dynamic @ CodeInspector`LinterUI`Private`styleData["SectionHeader"]["Code Analysis"], BaselinePosition -> (Baseline -> Scaled[.65])],
                   Spacer[8],
                   Pane[
                     PaneSelector[
@@ -172,14 +174,16 @@ dockedCell =
                   False -> Button[
 
                     Highlighted[
-                      Style["Analyze Notebook", FontColor -> GrayLevel[0.2], FontFamily -> "Source Sans Pro", FontWeight -> Plain, FontSize -> 14],
+                      Style["Analyze Notebook", FontColor -> Dynamic @ CodeInspector`LinterUI`Private`colorData["ButtonText"], FontFamily -> "Source Sans Pro", FontWeight -> Plain, FontSize -> 14],
                       ImageSize -> {Automatic, 19},
                       FrameMargins -> {9{1, 1}, 0{1, 1}},
                       BaselinePosition -> Baseline,
                       Alignment -> {Center, Center},
-                      Background -> White,
+                      Background -> Dynamic @ CodeInspector`LinterUI`Private`colorData["ButtonBack"],
                       Frame -> True,
-                      FrameStyle -> Dynamic[If[CurrentValue["MouseOver"], Hue[0.55,0.82,0.87], GrayLevel[.8]]]],
+                      FrameStyle -> Dynamic[If[CurrentValue["MouseOver"],
+                        CodeInspector`LinterUI`Private`colorData["ButtonEdgeHover"],
+                        CodeInspector`LinterUI`Private`colorData["ButtonEdge"]]]],
 
                     (* Delete docked cells with CellTags -> "AttachedAnalysisDockedCell" *)
                     CurrentValue[EvaluationNotebook[], DockedCells] = 
@@ -219,9 +223,9 @@ dockedCell =
               Tooltip[
                 (* This is the resolved expression from evaluating CodeInspector`LinterUI`Private`closeIcon[{-11, 0}, {1, 0}] *)
                 {
-                  GrayLevel[0.6],
+                  CodeInspector`LinterUI`Private`colorData["CloseButton"],
                   Disk[Offset[{-11, 0}, {1, 0}], Offset[6]],
-                  GrayLevel[0.97], AbsoluteThickness[1.5], CapForm["Round"],
+                  CodeInspector`LinterUI`Private`colorData["UIBack"], AbsoluteThickness[1.5], CapForm["Round"],
                   Line[{{Offset[{-13, 2}, {1, 0}], Offset[{-9, -2}, {1, 0}]}, {Offset[{-13, -2}, {1, 0}], Offset[{-9, 2}, {1, 0}]}}]},
                 "Close analysis", TooltipDelay -> 0],
 
@@ -256,16 +260,23 @@ dockedCell =
       ],
       
       (* Save the following definitions in the DynamicModule's Initialization option. *)
-      {dockedCellSeverityCountsButton, dockedCellMenuItem, $previewLength,
+      {
+        LinterUIDockedCell`Private`dockedCellSeverityCountsButton,
+        LinterUIDockedCell`Private`dockedCellMenuItem,
+        LinterUIDockedCell`Private`$previewLength,
         CodeInspector`LinterUI`Private`applyToVar,
         CodeInspector`LinterUI`Private`varValue,
         CodeInspector`LinterUI`Private`varSet,
         CodeInspector`LinterUI`Private`varNameString,
-        CodeInspector`LinterUI`Private`extractFirstList}],
+        CodeInspector`LinterUI`Private`extractFirstList,
+        CodeInspector`LinterUI`Private`styleData,
+        CodeInspector`LinterUI`Private`colorData,
+        CodeInspector`LinterUI`Private`lightDarkSwitched}], (* In case kernel is quit we need to cache all style *)
 
-    Background -> GrayLevel[.97],
+    Background -> Dynamic[FEPrivate`If[FEPrivate`SameQ[FrontEnd`AbsoluteCurrentValue[FrontEnd`EvaluationNotebook[], "LightDark"], "Dark"], GrayLevel[0.2325100], GrayLevel[0.9700000]]],
     (* Draw frame lines at the top and bottom of the cell. *)
-    CellFrame -> {{0, 0}, {1, 1}}, CellFrameColor -> GrayLevel[.85],
+    CellFrame -> {{0, 0}, {1, 1}},
+    CellFrameColor -> Dynamic[FEPrivate`If[FEPrivate`SameQ[FrontEnd`AbsoluteCurrentValue[FrontEnd`EvaluationNotebook[], "LightDark"], "Dark"], GrayLevel[0.4366500], GrayLevel[0.8500000]]],
     CellFrameMargins -> {{0, 0}, {0, 0}},
     CellTags -> "CodeAnalysisDockedCell"];
 
