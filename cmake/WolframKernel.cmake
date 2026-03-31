@@ -3,7 +3,7 @@ if(NOT DEFINED MATHEMATICA_INSTALL_DIR)
 if(CMAKE_HOST_WIN32)
 	set(MATHEMATICA_INSTALL_DIR "C:/Program Files/Wolfram Research/Mathematica/13.1")
 elseif(CMAKE_HOST_APPLE)
-	set(MATHEMATICA_INSTALL_DIR /Applications/Mathematica.app/Contents)
+	set(MATHEMATICA_INSTALL_DIR /Applications/Wolfram-14.3.app/Contents)
 else()
 	set(MATHEMATICA_INSTALL_DIR /usr/local/Wolfram/Mathematica/13.1)
 endif()
@@ -44,7 +44,11 @@ endif()
 
 macro(CheckWolframKernel)
 
-	if(NOT EXISTS ${WOLFRAMKERNEL})
+	if(NOT DEFINED WOLFRAMKERNEL OR "${WOLFRAMKERNEL}" STREQUAL "")
+	message(FATAL_ERROR "WOLFRAMKERNEL is not set")
+	endif()
+
+	if(NOT EXISTS "${WOLFRAMKERNEL}")
 	message(FATAL_ERROR "WOLFRAMKERNEL does not exist. WOLFRAMKERNEL: ${WOLFRAMKERNEL}")
 	endif()
 
@@ -53,7 +57,7 @@ macro(CheckWolframKernel)
 	#
 	execute_process(
 		COMMAND
-			${WOLFRAMKERNEL} -noinit -noprompt -nopaclet -nostartuppaclets -runfirst Pause[${KERNEL_PAUSE}]\;Print[OutputForm[$Version]]\;Exit[]
+			"${WOLFRAMKERNEL}" -noinit -noprompt -nopaclet -nostartuppaclets -runfirst Pause[${KERNEL_PAUSE}]\;Print[OutputForm[$Version]]\;Exit[]
 		OUTPUT_VARIABLE
 			VERSION
 		OUTPUT_STRIP_TRAILING_WHITESPACE
@@ -76,7 +80,7 @@ macro(CheckWolframKernel)
 	#
 	execute_process(
 		COMMAND
-			${WOLFRAMKERNEL} -noinit -noprompt -nopaclet -nostartuppaclets -runfirst Pause[${KERNEL_PAUSE}]\;Print[OutputForm[Floor[100\ $VersionNumber\ +\ $ReleaseNumber]]]\;Exit[]
+			"${WOLFRAMKERNEL}" -noinit -noprompt -nopaclet -nostartuppaclets -runfirst Pause[${KERNEL_PAUSE}]\;Print[OutputForm[Floor[100\ $VersionNumber\ +\ $ReleaseNumber]]]\;Exit[]
 		OUTPUT_VARIABLE
 			VERSION_NUMBER
 		OUTPUT_STRIP_TRAILING_WHITESPACE
@@ -103,7 +107,7 @@ macro(CheckWolframKernel)
 	#
 	execute_process(
 		COMMAND
-			${WOLFRAMKERNEL} -noinit -noprompt -nopaclet -nostartuppaclets -runfirst Pause[${KERNEL_PAUSE}]\;Print[OutputForm[$SystemID]]\;Exit[]
+			"${WOLFRAMKERNEL}" -noinit -noprompt -nopaclet -nostartuppaclets -runfirst Pause[${KERNEL_PAUSE}]\;Print[OutputForm[$SystemID]]\;Exit[]
 		OUTPUT_VARIABLE
 			SYSTEMID
 		OUTPUT_STRIP_TRAILING_WHITESPACE
@@ -126,7 +130,7 @@ macro(CheckWolframKernel)
 	#
 	execute_process(
 		COMMAND
-			${WOLFRAMKERNEL} -noinit -noprompt -nopaclet -nostartuppaclets -runfirst Pause[${KERNEL_PAUSE}]\;Print[OutputForm[$SystemWordLength]]\;Exit[]
+			"${WOLFRAMKERNEL}" -noinit -noprompt -nopaclet -nostartuppaclets -runfirst Pause[${KERNEL_PAUSE}]\;Print[OutputForm[$SystemWordLength]]\;Exit[]
 		OUTPUT_VARIABLE
 			SYSTEMWORDLENGTH
 		OUTPUT_STRIP_TRAILING_WHITESPACE

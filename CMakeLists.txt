@@ -27,13 +27,21 @@ find_program(CODEPARSER_EXE
 set(PACLET "CodeInspector")
 set(PACLET_LAYOUT_DIR "paclet" CACHE FILEPATH "Path to complete, built paclet layout (relative to build directory)")
 set(WOLFRAMKERNEL ${WOLFRAMKERNEL_DEFAULT} CACHE FILEPATH "Path to WolframKernel")
+
+# If a previous configure wrote an invalid WOLFRAMKERNEL into the cache,
+# automatically reset it to the platform default when possible.
+if(NOT EXISTS "${WOLFRAMKERNEL}" AND EXISTS "${WOLFRAMKERNEL_DEFAULT}")
+	message(STATUS "Resetting invalid cached WOLFRAMKERNEL to default: ${WOLFRAMKERNEL_DEFAULT}")
+	set(WOLFRAMKERNEL "${WOLFRAMKERNEL_DEFAULT}" CACHE FILEPATH "Path to WolframKernel" FORCE)
+endif()
+
 set(LOCAL_BUILD OFF CACHE BOOL "Local build")
 #
 # Time to pause when starting kernel
 #
 # Work-around for bug 349779 is to pause ~1 second
 # bug 349779 was fixed in version 12.0
-# 
+#
 # Related bugs: 349779
 #
 set(KERNEL_PAUSE 0 CACHE STRING "Kernel startup pause")
