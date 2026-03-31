@@ -49,7 +49,7 @@ opaquePat =
 Rules are of the form: pat -> func where pat is the node pattern to match on and func is the processing function for the node.
 
 Functions are of the form: function[pos_, ast_] where pos is the position of the node in the AST, and ast is the AST itself.
-  And function must return a list of Lints. 
+  And function must return a list of Lints.
 
 
 A rule of thumb is to make patterns as specific as possible, to offload work of calling the function.
@@ -516,7 +516,7 @@ Catch[
 Module[{ast, node, children, data, issues, actions, counts,
   selecteds, srcs, dupKeys, expensiveChildren, filtered,
   ruleChildren},
-  
+
   ast = astIn;
   node = Extract[ast, {pos}][[1]];
   children = node[[2]];
@@ -597,7 +597,7 @@ Module[{ast, node, children, data, selecteds, issues, srcs, counts, keys, dupKey
     If[Length[pos] >= 6,
       parentPos = Drop[pos, -6];
       parent = Extract[ast, {parentPos}][[1]];
-      
+
       If[MatchQ[parent,
           CallNode[LeafNode[Symbol, "HTTPRequest", _], {
             _
@@ -629,7 +629,7 @@ Module[{ast, node, children, data, selecteds, issues, srcs, counts, keys, dupKey
     If[Length[pos] >= 4,
       parentPos = Drop[pos, -4];
       parent = Extract[ast, {parentPos}][[1]];
-      
+
       If[MatchQ[parent,
           CallNode[LeafNode[Symbol, "ArrayPlot" | "ArrayPlot3D", _], {
             _
@@ -676,7 +676,7 @@ Module[{ast, node, children, data, selecteds, issues, srcs, counts, keys, dupKey
             "VertexReplace" | "GraphHub" | "KEdgeConnectedComponents" |
 
             "ReplaceList" |
-            
+
             "StringReplaceList" |
 
             "Merge", _], _, _]],
@@ -736,7 +736,7 @@ Module[{ast, node, children, data, selecteds, issues, srcs, counts, keys, dupKey
     Limit actions to max of 3
     *)
     srcs = Take[srcs, UpTo[3]];
-    
+
     actions = MapIndexed[CodeAction["Delete key " <> ToString[#2[[1]]], DeleteNode, <| Source -> # |>]&, srcs];
 
     AppendTo[issues, InspectionObject["DuplicateKeys", "Duplicate keys in list of rules.", "Warning", <|
@@ -778,11 +778,11 @@ Module[{ast, node, head, children, data, issues, srcs, counts, selecteds,
   head = node[[1]];
   children = node[[2]];
   data = node[[3]];
-  
+
   issues = {};
 
   If[empty[children],
-    AppendTo[issues, 
+    AppendTo[issues,
      InspectionObject["Arguments", "``Which`` does not have any arguments.", "Error", <|
        data,
        ConfidenceLevel -> 0.55,
@@ -791,7 +791,7 @@ Module[{ast, node, head, children, data, issues, srcs, counts, selecteds,
   ];
 
   If[!EvenQ[Length[children]],
-    AppendTo[issues, 
+    AppendTo[issues,
       InspectionObject["Arguments", "``Which`` does not have even number of arguments.", "Error", <|
         data,
         ConfidenceLevel -> 0.55,
@@ -814,7 +814,7 @@ Module[{ast, node, head, children, data, issues, srcs, counts, selecteds,
   ];
 
   If[MatchQ[children[[-2]], CallNode[LeafNode[Symbol, "Blank", _], _, _]],
-    AppendTo[issues, 
+    AppendTo[issues,
       InspectionObject["SwitchWhichConfusion", "``_`` is not a test.", "Error", <|
         Source -> children[[-2, 3, Key[Source]]],
         CodeActions -> {
@@ -916,7 +916,7 @@ Module[{ast, node, children, data, src, cases, issues, selecteds, srcs, counts,
   node = Extract[ast, {pos}][[1]];
   children = node[[2]];
   data = node[[3]];
-  
+
   issues = {};
 
   If[Length[children] == 1,
@@ -968,9 +968,9 @@ Module[{ast, node, children, data, src, cases, issues, selecteds, srcs, counts,
    *)
   If[MatchQ[children[[-2]], LeafNode[Symbol, "True", _]],
    (*
-    
-    heuristic 
-  
+
+    heuristic
+
    presence of False makes it less likely that True is unintended
    *)
     If[FreeQ[children[[2;;-4;;2]], LeafNode[Symbol, "False", _]],
@@ -1032,7 +1032,7 @@ Module[{ast, node, children, data, src, cases, issues, selecteds, srcs, counts,
     formPatternNames = Cases[form, CallNode[LeafNode[Symbol, "Pattern", _], {LeafNode[Symbol, n_, _], _}, _] :> n, {0, Infinity}];
 
     Scan[(
-      
+
       valuePatterns = Cases[value, LeafNode[Symbol, #, _], {0, Infinity}];
       If[empty[valuePatterns],
         (*
@@ -1042,7 +1042,7 @@ Module[{ast, node, children, data, src, cases, issues, selecteds, srcs, counts,
         ,
         (*
         too many false positives, so make this a Remark for now
-        
+
         experimental
 
         Scan[(AppendTo[issues, Lint["NamedPatternInSwitch", "Named pattern in ``Switch``: ``" <> ToFullFormString[#] <> "``.\n\
@@ -1071,7 +1071,7 @@ Module[{ast, node, children, data, issues, selected, srcs, counts,
   node = Extract[ast, {pos}][[1]];
   children = node[[2]];
   data = node[[3]];
-  
+
   issues = {};
 
   Which[
@@ -1191,7 +1191,7 @@ Catch[
   node = Extract[ast, {pos}][[1]];
   children = node[[2]];
   data = node[[3]];
-  
+
   If[Length[children] == 2,
     rules = children[[2]];
     ,
@@ -1234,7 +1234,7 @@ Catch[
 Module[{ast, node, patSymbol, name, rhs, children, data, patterns, issues},
   ast = astIn;
   node = Extract[ast, {pos}][[1]];
-  
+
   children = node[[2]];
   data = node[[3]];
 
@@ -1278,7 +1278,7 @@ Module[{ast, node, parentPos, parent, s},
   ast = astIn;
   node = Extract[ast, {pos}][[1]];
   s = node["String"];
-  
+
   parentPos = Most[pos];
   parent = Extract[ast, {parentPos}][[1]];
   While[ListQ[parent],
@@ -1654,7 +1654,7 @@ scanWiths[pos_List, astIn_] :=
 Catch[
 Module[{ast, node, children, data, selected, paramLists, issues, varsAndVals, vars, vals,
   counts, errs, srcs, cases, argumentPos},
-  
+
   ast = astIn;
   node = Extract[ast, {pos}][[1]];
   children = node[[2]];
@@ -1663,7 +1663,7 @@ Module[{ast, node, children, data, selected, paramLists, issues, varsAndVals, va
   issues = {};
 
   If[empty[children],
-    
+
     AppendTo[issues, InspectionObject["Arguments", "``With`` does not have 2 or more arguments.", "Error", <|
       data,
       ConfidenceLevel -> 0.55,
@@ -1820,7 +1820,7 @@ Module[{ast, node, children, data, selected, paramLists, issues, varsAndVals, va
 
   Scan[
     Function[varsList,
-    
+
       counts = CountsBy[varsList, ToFullFormString];
 
       (*
@@ -2346,7 +2346,7 @@ Module[{ast, node, children, data, selected, issues, consts, counts, firsts, src
   data = node[[3]];
 
   issues = {};
-  
+
   consts = Cases[children, LeafNode[Symbol, "True"|"False", _]];
   Scan[(AppendTo[issues, InspectionObject["LogicalConstant", "Logical constant in ``And``.", "Warning", <|
     #[[3]],
@@ -2394,7 +2394,7 @@ Module[{ast, node, children, data, selected, issues, consts, counts, firsts, src
   data = node[[3]];
 
   issues = {};
-  
+
   consts = Cases[children, LeafNode[Symbol, "True"|"False", _]];
   Scan[(AppendTo[issues, InspectionObject["LogicalConstant", "Logical constant in ``Or``.", "Warning", <|
     #[[3]],
@@ -2440,7 +2440,7 @@ Module[{ast, node, children, data, selected, issues, blanks, counts, firsts, src
   data = node[[3]];
 
   issues = {};
-  
+
   (*
   if this is _ | PatternSequence[] then this is ok
   *)
@@ -2556,7 +2556,7 @@ Module[{ast, node, reaped, issues},
   ][[2]];
 
   issues = Flatten[reaped];
-  
+
   issues
 ]]
 
@@ -2583,13 +2583,13 @@ Module[{ast, node, children, data, lhsPatterns, lhs, rhs, lhsPatternNames,
   rhsSymbols = Cases[rhs, LeafNode[Symbol, _, _], {0, Infinity}];
 
   Do[
-    
+
     fullForm = ToFullFormString[lhsPatternName];
 
     rhsOccurringSymbols = Select[rhsSymbols, (ToFullFormString[#] == fullForm)&];
 
     If[!empty[rhsOccurringSymbols],
-      
+
       (*
       TODO: need to go from abstract Rule[a, b] to concrete a :> b
       *)
@@ -2700,7 +2700,7 @@ Module[{ast, node, data, parent, parentPos, previousPos, previous, optional, opt
     parentPos = Most[parentPos];
     parent = Extract[ast, {parentPos}][[1]]
   ];
-  
+
   (*
   could be something like  opts:OptionsPattern[], so go include the Pattern before proceeding
   *)
@@ -2901,7 +2901,7 @@ Module[{ast, node, issues, varName, start, end, startStr, endStr,
       end = node[[2, 2, 2, 2]];
       startStr = ToFullFormString[start];
       endStr = ToFullFormString[end];
-      
+
       AppendTo[issues,
         InspectionObject["For", "Use ``Table`` instead of ``For`` for cleaner code.", "Remark", <|
           Source -> headSrc,
@@ -2948,7 +2948,7 @@ Module[{ast, node, issues, varName, start, end, startStr, endStr,
   headSrc = head[[3, Key[Source]]];
 
   issues = {};
-  
+
   enclosingEnclose = False;
 
   If[pos != {},
@@ -3116,11 +3116,11 @@ Module[{ast, node, issues, head, headSrc, children, parentPos,
       *)
 
       blankNullSequenceNodes = Cases[parent, CallNode[LeafNode[Symbol, "BlankNullSequence", _], _, _], Infinity];
-      
+
       blankNullSequenceNodesInKeyValuePattern = Cases[node, CallNode[LeafNode[Symbol, "BlankNullSequence", _], _, _], Infinity];
 
       blankNullSequenceNodes = Complement[blankNullSequenceNodes, blankNullSequenceNodesInKeyValuePattern];
-      
+
       If[Length[blankNullSequenceNodes] >= 2,
         (*
         parent contains both KeyValuePatterns and at least 2 BlankNullSequences (and the BlankNullSequences are not inside the KeyValuePatterns)
@@ -3538,7 +3538,7 @@ Module[{ast, failure, issues, parentPos, parent},
 too noisy
 
 scanAlts[pos_, actual_] :=
- 
+
  Module[{node, parentPos, parent, span, opts},
   node = Extract[actual, pos];
   opts = node[[-1]];
@@ -3579,7 +3579,7 @@ too noisy
 
 scanSetDelayeds[
   BinaryNode[SetDelayed, {left_, right_}, opts_?AssociationQ]] :=
- Module[{warnings, opLocation, duplicates, selected, name1, 
+ Module[{warnings, opLocation, duplicates, selected, name1,
    name2, span1, span2},
 
    warnings = {};
@@ -3591,21 +3591,21 @@ too noisy
 
   name1 = DeclarationName[left];
   If[name1 === $Failed,
-   AppendTo[warnings, 
+   AppendTo[warnings,
     Lint["Internal failure", "Fatal", <|Source -> opts[Source]|>]]
    ];
   If[MatchQ[right, BinaryNode[Set, _, _]],
    name2 = DeclarationName[right[[2, 1]]];
    If[name2 === $Failed,
-    AppendTo[warnings, 
-     Lint["Internal failure", 
+    AppendTo[warnings,
+     Lint["Internal failure",
       "Fatal", <|Source -> opts[Source]|>]]
     ];
    If[name1 =!= name2,
     span1 = left[[-1]][Source];
     span2 = right[[2, 1, -1]][Source];
-    AppendTo[warnings, 
-     Lint["Memoization of different symbols", 
+    AppendTo[warnings,
+     Lint["Memoization of different symbols",
       "Warning", <|Source -> {span1[[1]], span2[[2]]}|>]]
     ];
    ];
@@ -3664,9 +3664,9 @@ Module[{src, context, name, issues},
     (*
     This is "stylistic" so make a Remark
     *)
-    AppendTo[issues, InspectionObject["UppercaseVariable", "Suspicious uppercase symbol as variable: " <> name, "Remark",
+    (* AppendTo[issues, InspectionObject["UppercaseVariable", "Suspicious uppercase symbol as variable: " <> name, "Remark",
                       <| Source -> src,
-                        ConfidenceLevel -> 0.80 |>]];
+                        ConfidenceLevel -> 0.80 |>]]; *)
   ];
 
   issues
@@ -3715,7 +3715,7 @@ Module[{src, context, name, issues},
     *)
     AppendTo[issues, InspectionObject["UppercaseParameter", "Suspicious uppercase symbol as parameter: " <> name, "Remark",
                       <| Source -> src,
-                        ConfidenceLevel -> 0.80 |>]];
+                        ConfidenceLevel -> 0.50 |>]];
   ];
 
   issues

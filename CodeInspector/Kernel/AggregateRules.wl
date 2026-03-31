@@ -76,7 +76,7 @@ opaquePat =
 Rules are of the form: pat -> func where pat is the node pattern to match on and func is the processing function for the node.
 
 Functions are of the form: function[pos_, ast_] where pos is the position of the node in the AST, and ast is the AST itself.
-  And function must return a list of Lints. 
+  And function must return a list of Lints.
 
 
 A rule of thumb is to make patterns as specific as possible, to offload work of calling the function.
@@ -154,14 +154,14 @@ we might have:
 *)
 (*
 BinaryNode[Power, {
-  LeafNode[Integer, "16", _], 
-  LeafNode[Token`Caret, "^", _], 
+  LeafNode[Integer, "16", _],
+  LeafNode[Token`Caret, "^", _],
   _}, _] -> scan,
 
 InfixNode[ImplicitTimes, {
   BinaryNode[Power, {
-    LeafNode[Integer, "16", _], 
-    LeafNode[Token`Caret, "^", _], 
+    LeafNode[Integer, "16", _],
+    LeafNode[Token`Caret, "^", _],
     LeafNode[Integer, "45", _]}, _],
   LeafNode[Token`Fake`ImplicitTimes, "", _],
   __ }, _] -> scan,
@@ -379,7 +379,7 @@ Module[{agg, node, parentPos, parent, reaped, issues},
   ][[2]];
 
   issues = Flatten[reaped];
-  
+
   issues
 ]]
 
@@ -488,7 +488,7 @@ Module[{agg, node, data, children, issues, pairs, warningSrcs, errorSrcs},
 
     (*
     mark more specific patterns as errors
-  
+
     The error cases are:
     _ <implicit Times>
     __ <implicit Times>
@@ -1106,7 +1106,7 @@ Module[{agg, node, parentPos, parent, reaped, issues},
   ][[2]];
 
   issues = Flatten[reaped];
-  
+
   issues
 ]]
 
@@ -1159,7 +1159,7 @@ Module[{agg, node, data, child, patternTest, patternTestChildren, patternTestArg
 
       The chance that (a?Function)[args] was intentional is... miniscule
 
-      TODO: add anything callable like Function here 
+      TODO: add anything callable like Function here
       *)
 
       replacementNode = BinaryNode[PatternTest, {
@@ -1504,7 +1504,7 @@ Module[{agg, node, tag, data, children, qSrc, a, q, b, aSrc, aName,
                   b[[2, 1]]}, <||>]}, <||>],
               b[[2, 2]],
               b[[2, 3]]}, <||>];
-          
+
           (*
           input was  a_?b:c
 
@@ -1545,7 +1545,7 @@ Module[{agg, node, tag, data, children, qSrc, a, q, b, aSrc, aName,
           Null
       ]
 
-      
+
   ];
 
   If[!unexpected && !expected,
@@ -1825,7 +1825,7 @@ Module[{agg, node, data, children, patternBlank,
         |>]
       ]
   ];
-  
+
   (*
   bring in heuristics for when a_:b is valid
   If a is named XXXpat, then assume that it is being used as a pattern and do not warn
@@ -1967,7 +1967,7 @@ Module[{agg, node, data, children, alternativesChildren, alternativesMost, alter
       (*
       wrap preceding StringExpression children with first alternatives child
       *)
-      
+
       alternativesFirst = First[alternativesChildren];
       alternativesRest = Rest[alternativesChildren];
 
@@ -2058,7 +2058,7 @@ Module[{agg, node, data, children, alternativesChildren, alternativesMost, alter
     *)
     choice =
       InfixNode[StringExpression,
-        Flatten[Riffle[stringExpArgsBefore ~Join~ 
+        Flatten[Riffle[stringExpArgsBefore ~Join~
           {GroupNode[GroupParen, {
             LeafNode[Token`OpenParen, "(", <||>],
             alternatives,
@@ -2234,9 +2234,9 @@ Module[{src, context, name, issues},
     (*
     This is "stylistic" so make a Remark
     *)
-    AppendTo[issues, InspectionObject["UppercasePattern", "Suspicious uppercase symbol as pattern: " <> name, "Remark",
+    (* AppendTo[issues, InspectionObject["UppercasePattern", "Suspicious uppercase symbol as pattern: " <> name, "Remark",
                       <| Source -> src,
-                        ConfidenceLevel -> 0.80 |>]];
+                        ConfidenceLevel -> 0.80 |>]]; *)
   ];
 
   issues
@@ -2323,7 +2323,7 @@ Module[{agg, node, issues, children, rand},
   node = Extract[agg, {pos}][[1]];
 
   children = node[[2]];
-  
+
   issues = {};
 
   (*
@@ -2455,7 +2455,8 @@ inspired by bug 421310
 Attributes[scanNonCommutativeMultiplys] = {HoldRest}
 
 scanNonCommutativeMultiplys[pos_List, cstIn_] :=
-Module[{cst, node, children, issues, rators},
+  {};
+(* Module[{cst, node, children, issues, rators},
   cst = cstIn;
   node = Extract[cst, {pos}][[1]];
   children = node[[2]];
@@ -2485,7 +2486,7 @@ Module[{cst, node, children, issues, rators},
   ];
 
   issues
-]
+] *)
 
 
 Attributes[scanAlternativesOr] = {HoldRest}

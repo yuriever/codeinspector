@@ -1,7 +1,7 @@
 
 Paclet[
   Name -> "CodeInspector",
-  Version -> "1.13",
+  Version -> "1.13.3",
   WolframVersion -> "12.1+",
   Description -> "Find and report problems in Wolfram Language code.",
   Creator -> "Brenton Bostick <brenton@wolfram.com>",
@@ -16,7 +16,7 @@ Paclet[
     {"Resource", Root->"Resources",
       Resources -> {
         {"Collatz","Examples/Collatz.m"},
-        
+
         {"AnalyzableMessages", "Data/AnalyzableMessages.wl"},
         {"BadSymbols", "Data/BadSymbols.wl"},
         {"BuiltinFunctions", "Data/BuiltinFunctions.wl"},
