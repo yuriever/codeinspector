@@ -3713,9 +3713,9 @@ Module[{src, context, name, issues},
     (*
     This is "stylistic" so make a Remark
     *)
-    AppendTo[issues, InspectionObject["UppercaseParameter", "Suspicious uppercase symbol as parameter: " <> name, "Remark",
+    (* AppendTo[issues, InspectionObject["UppercaseParameter", "Suspicious uppercase symbol as parameter: " <> name, "Remark",
                       <| Source -> src,
-                        ConfidenceLevel -> 0.50 |>]];
+                        ConfidenceLevel -> 0.50 |>]]; *)
   ];
 
   issues
