@@ -4,16 +4,18 @@ CodeInspector is a package for finding and reporting problems in Wolfram Languag
 CodeInspector has a large collection of rules that can be used to inspect Wolfram Language source code files and can be customized to your preferences.
 
 In a stand-alone kernel:
+
 ```
 Needs["CodeInspector`"]
 
 CodeInspectSummarize["If[a,b,b]"]
 ```
+
 ```
 Out[2]= If[a,b,b]
 
         line 1:  If[a,b,b]
-                      ^ ^  
+                      ^ ^
                 DuplicateClauses Error Both branches are the same.
 ```
 
@@ -30,7 +32,6 @@ In a front end:\
 
 [Finding Bugs in the Wolfram Language from WTC 2019: Download Presentation](https://files.wolframcdn.com/pub/www.wolfram.com/technology-conference/2019/Thursday/2019BrentonBostickFindingBugsInTheWL.nb)
 
-
 ## Setup
 
 CodeInspector depends on [CodeParser paclet](https://github.com/WolframResearch/codeparser) and [CodeFormatter paclet](https://github.com/WolframResearch/codeformatter).
@@ -38,6 +39,7 @@ CodeInspector depends on [CodeParser paclet](https://github.com/WolframResearch/
 CodeInspector and its dependencies are included in Mathematica 12.2 and above.
 
 For older versions, install CodeInspector paclet and dependencies from the public paclet server:
+
 ```
 PacletInstall["CodeParser"]
 PacletInstall["CodeFormatter"]
@@ -46,17 +48,18 @@ PacletInstall["CodeInspector"]
 
 [Build and install the CodeInspector paclet locally](HowToBuild.md)
 
-
 ## Using CodeInspector
 
 After CodeParser and CodeInspector are installed, CodeInspector can be used.
 
 Return the list of all problems found in a string of code:
+
 ```
 Needs["CodeInspector`"]
 
 CodeInspect["If[a,b,b]"]
 ```
+
 ```
 Out[2]= {DuplicateClauses Error Both branches are the same.}
 ```
@@ -71,15 +74,16 @@ See this tutorial in the Wolfram System help browser:
 
 * CodeInspector/tutorial/CodeInspectorTutorial
 
-
 ## Troubleshooting
 
 Make sure that the paclets can be found on your system:
+
 ```
 Needs["CodeInspector`"]
 ```
 
 and try a basic example:
+
 ```
 CodeInspect["If[a, b, b]"]
 ```
